@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+
+{% block head %}
+    <!-- Специфические метатеги или стили для index.html -->
+{% endblock %}
+
+{% block content %}
+<figure class="fullscreen-img">
+        <img src="https://source.unsplash.com/featured/?hotel" alt="Hotel Image" class="fullscreen-img" />
+        <div class="overlay-form">
+            <div class="form-item">
+                <label for="checkin-date">Check-In Date:</label>
+                <input type="date" id="checkin-date" name="checkin-date" required>
+            </div>
+            <div class="form-item">
+                <label for="checkout-date">Check-Out Date:</label>
+                <input type="date" id="checkout-date" name="checkout-date" required>
+            </div>
+            <div class="form-item">
+                <label for="room-type">Room Type:</label>
+                <select id="room-type" name="room-type">
+                    <option value="single">Single</option>
+                    <option value="double">Double</option>
+                    <option value="suite">Suite</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label for="guests">Number of Guests:</label>
+                <input type="number" id="guests" name="guests" min="1" max="10" required>
+            </div>
+            <div class="form-item">
+                <button type="submit" class="button-primary">Book Now</button>
+            </div>
+        </div>
+    </figure>
+
+{% endblock %}
+
+{% block footer %}
+    <!-- Футер, если он нужен -->
+{% endblock %}

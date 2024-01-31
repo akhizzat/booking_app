@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link type="text/css" href="{% static 'booking_app/css/style.css' %}" rel="stylesheet" />
+    <title>Hotel Homepage</title>
+
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Hotel Homepage</strong></li>
+        </ul>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'rooms' %}">Rooms</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    {% block content %}{% endblock %}
+
+
+    <footer class="container">
+        <small>
+            <a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a> • <a href="#">Contact Us</a>
+        </small>
+    </footer>
+</body>
+</html>
