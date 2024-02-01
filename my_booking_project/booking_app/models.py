@@ -35,7 +35,7 @@ class Review(models.Model):
     review_date = models.DateTimeField(auto_now_add=True)  # Дата написания отзыва
 
     def __str__(self):
-        return f'Id номер покупателя{self.customer}'
+        return f'Id номер покупателя {self.customer}'
 
 
 class Booking(models.Model):
@@ -46,7 +46,7 @@ class Booking(models.Model):
     total_cost = models.DecimalField(max_digits=12, decimal_places=1)  # Стоимость
 
     def __str__(self):
-        return f'Id номер покупателя{self.id_user}'
+        return f'Id номер покупателя {self.id_user}'
 
 
 class Payment(models.Model):
@@ -56,4 +56,4 @@ class Payment(models.Model):
     pay_method = models.CharField(max_length=50)  # Метод оплачивания
 
     def __str__(self):
-        return f'Id номер таблицы Booking{self.booking_id}'
+        return f'Id номер таблицы Booking {self.booking_id}'
