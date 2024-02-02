@@ -7,9 +7,11 @@
 {% endblock %}
 
 {% block content %}
-<figure class="fullscreen-img">
+<div>
+    <div class="fullscreen-img">
         <img src="https://source.unsplash.com/featured/?hotel" alt="Hotel Image" class="fullscreen-img" />
-        <div class="overlay-form">
+        <div>
+            <div class="overlay-form">
             <form action="{% url 'search_rooms' %}" method="get">
             <div class="form-item">
                 <label for="checkin-date">Check-In Date:</label>
@@ -33,11 +35,16 @@
                 <input type="number" id="guests" name="guests" min="1" max="10" required>
             </div>
             <div class="form-item">
+                <br>
                 <button type="submit" class="button-primary">Search</button>
             </div>
             </form>
         </div>
-    </figure>
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}
 

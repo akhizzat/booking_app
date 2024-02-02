@@ -1,42 +1,62 @@
+body{
+
+}
 .overlay-form {
+
     position: absolute;
-    top: 12.5%; /* Moved up from the center */
-    left: 50%;
-    transform: translate(-50%, -12.5%);
+
+
     color: white;
     background: rgba(0, 0, 0, 0.5);
     padding: 1rem;
     border-radius: 8px;
-    z-index: 10;
     display: flex;
-    align-items: center;
+    justify-content: center;
     gap: 1rem;
-    flex-direction: row; /* Измените на row, чтобы сделать расположение горизонтальным */
-    align-items: flex-start; /* Выравнивание элементов по началу контейнера */
-}
 
+
+
+}
+.overlay-form form{
+
+    display: flex;
+    justify-content: center;
+
+}
 .form-item {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    margin: 5px; /* Расстояние между элементами формы */
+    flex-direction: column;
+    margin: 10px; /* Расстояние между элементами формы */
 }
+
+/*.form-item label{*/
+
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
 
 #checkin-date, #checkout-date, #room-type, #guests{
     color: #FFFFFF
 }
 
-figure.fullscreen-img {
+div.fullscreen-img {
     margin: 0;
     padding: 0;
     position: relative;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-}
 
+}
+.fullscreen-img div{
+
+    display: flex;
+    justify-content: center;
+}
 img.fullscreen-img {
+
     width: 100vw;
     height: 100vh;
     object-fit: cover;
@@ -49,8 +69,7 @@ img.fullscreen-img {
 @media (max-width: 800px) {
     .overlay-form {
         flex-direction: column;
-        transform: translate(-50%, -50%);
-        top: 25%;
+
     }
 }
 
@@ -74,3 +93,17 @@ img {
             grid-template-columns: 1fr;
     }
 }
+
+@media (max-width: 900px) {
+    .overlay-form form{
+    width: 100%;
+    display: flex;
+
+    flex-direction: column; /* Измените на row, чтобы сделать расположение горизонтальным */
+        align-items: center;
+
+}
+
+
+}
+

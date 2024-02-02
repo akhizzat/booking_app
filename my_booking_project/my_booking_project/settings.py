@@ -24,8 +24,10 @@ SECRET_KEY = 'django-insecure-ovh6xg69vrrmrq0_)5q+g2-1b+0%x6-p%6hz26ar$ai8v3ra!j
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
+
+#ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.30', 'localhost'] Вот это ip адрес моего пк, чтоб я мог с
+# телефона смотреть как смотриться
 
 
 # Application definition
