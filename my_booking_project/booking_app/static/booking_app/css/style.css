@@ -11,13 +11,16 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-direction: row; /* Измените на row, чтобы сделать расположение горизонтальным */
+    align-items: flex-start; /* Выравнивание элементов по началу контейнера */
 }
 
 .form-item {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: flex-start;
+    margin: 5px; /* Расстояние между элементами формы */
 }
 
 #checkin-date, #checkout-date, #room-type, #guests{

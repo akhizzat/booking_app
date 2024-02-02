@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Search Rooms{% endblock %}
+
+{% block content %}
+<!-- Список доступных номеров -->
+<div class="available-rooms">
+    {% for room in rooms %}
+        <div class="room">
+            <h2>Room Number: {{ room.number }}</h2>
+            <img src="{{ room.image.url }}" alt="Room image">
+            <p>Type: {{ room.category }}</p>
+            <p>Price: {{ room.price }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -10,6 +10,7 @@
 <figure class="fullscreen-img">
         <img src="https://source.unsplash.com/featured/?hotel" alt="Hotel Image" class="fullscreen-img" />
         <div class="overlay-form">
+            <form action="{% url 'search_rooms' %}" method="get">
             <div class="form-item">
                 <label for="checkin-date">Check-In Date:</label>
                 <input type="date" id="checkin-date" name="checkin-date" required>
@@ -23,7 +24,8 @@
                 <select id="room-type" name="room-type">
                     <option value="single">Single</option>
                     <option value="double">Double</option>
-                    <option value="suite">Suite</option>
+                    <option value="family">Family</option>
+                    <option value="luxury">Luxury</option>
                 </select>
             </div>
             <div class="form-item">
@@ -31,8 +33,9 @@
                 <input type="number" id="guests" name="guests" min="1" max="10" required>
             </div>
             <div class="form-item">
-                <button type="submit" class="button-primary">Book Now</button>
+                <button type="submit" class="button-primary">Search</button>
             </div>
+            </form>
         </div>
     </figure>
 
