@@ -21,7 +21,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('booking_app.urls'))
+    path('', include('booking_app.urls')),
+
 ]
 
 # Добавьте эту строку в конце файла, чтобы обработать медиа-файлы во время разработки
