@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'booking_app',
     'drf_multiple_model',
     'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
