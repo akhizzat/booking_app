@@ -3,10 +3,10 @@ from django.db import models
 
 class Room(models.Model):
     ROOM_CATEGORIES = (
-        ('SGL', 'Single'),
-        ('DBL', 'Double'),  # двуспальной кровать
-        ('FM', 'Family'),  # это трехместный номер
-        ('LX', 'Luxury'),  # это «королевский сьют»
+        ('single', 'SGL'),
+        ('double', 'DBL'),  # двуспальной кровать
+        ('family', 'FM'),  # это трехместный номер
+        ('luxury', 'LX'),  # это «королевский сьют»
 
     )
 
