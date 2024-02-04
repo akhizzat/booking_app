@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from rest_framework import routers
+from rest_framework import routers, viewsets
 
 from .models import Review, Payment
+<<<<<<< HEAD
 from booking_app.my_booking_project.api.serializers import RoomSerializer, BookingSerializer, PaymentSerializer, ReviewSerializer
+=======
+from .serializers import RoomSerializer, BookingSerializer, PaymentSerializer, ReviewSerializer
+>>>>>>> testing
 
 from .models import Room, Booking
 from django.db.models import Q
@@ -83,5 +87,13 @@ class BookingAPIView(ObjectMultipleModelAPIViewSet):
 
 router = routers.DefaultRouter()
 router.register('api', BookingAPIView, basename='api')
+
+# class BookingAPIView(viewsets.ModelViewSet):
+#     queryset = Room.objects.all()
+#     serializer_class = RoomSerializer
+#
+#
+# router = routers.DefaultRouter()
+# router.register('api', BookingAPIView, basename='api')
 
 
