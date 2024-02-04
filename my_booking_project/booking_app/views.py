@@ -4,11 +4,9 @@ from django.http import HttpResponse
 from rest_framework import routers, viewsets
 
 from .models import Review, Payment
-<<<<<<< HEAD
-from booking_app.my_booking_project.api.serializers import RoomSerializer, BookingSerializer, PaymentSerializer, ReviewSerializer
-=======
+
 from .serializers import RoomSerializer, BookingSerializer, PaymentSerializer, ReviewSerializer
->>>>>>> testing
+
 
 from .models import Room, Booking
 from django.db.models import Q
