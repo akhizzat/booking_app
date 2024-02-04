@@ -5,7 +5,7 @@ from rest_framework import routers, viewsets
 
 from .models import Review, Payment
 
-from .serializers import RoomSerializer, BookingSerializer, PaymentSerializer, ReviewSerializer
+from .serializer import RoomSerializer, BookingSerializer, PaymentSerializer, ReviewSerializer
 
 
 from .models import Room, Booking
