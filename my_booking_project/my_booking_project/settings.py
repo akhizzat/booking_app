@@ -125,7 +125,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-
+STATIC_ROOT = 'E:/Py/Диплом/booking_app/my_booking_project/static/'
 
 
 # Default primary key field type
@@ -138,3 +138,8 @@ MEDIA_URL = '/media/'
 
 # Физический путь к директории, где будут храниться медиа-файлы
 MEDIA_ROOT = BASE_DIR / 'media'
+
+try:
+    from .local_setting import *
+except ImportError:
+    print('No local file')

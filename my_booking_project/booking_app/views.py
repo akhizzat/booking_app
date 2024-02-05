@@ -5,7 +5,7 @@ from rest_framework import routers, viewsets
 
 from .models import Review, Payment
 
-from .serializer import RoomSerializer, BookingSerializer, PaymentSerializer, ReviewSerializer
+from .serializer import RoomSerializer, BookingSerializer, PaymentSerializer, ReviewSerializer, AllSerializer
 
 
 from .models import Room, Booking
@@ -74,24 +74,44 @@ def search_rooms(request):
 from drf_multiple_model.viewsets import ObjectMultipleModelAPIViewSet
 
 
-class BookingAPIView(ObjectMultipleModelAPIViewSet):
-    querylist = [
-        {'queryset': Room.objects.all(), 'serializer_class': RoomSerializer},
-        {'queryset': Booking.objects.all(), 'serializer_class': BookingSerializer},
-        {'queryset': Review.objects.all(), 'serializer_class': ReviewSerializer},
-        {'queryset': Payment.objects.all(), 'serializer_class': PaymentSerializer},
-    ]
-
-
-router = routers.DefaultRouter()
-router.register('api', BookingAPIView, basename='api')
-
-# class BookingAPIView(viewsets.ModelViewSet):
-#     queryset = Room.objects.all()
-#     serializer_class = RoomSerializer
+# class BookingAPIView(ObjectMultipleModelAPIViewSet):
+#     querylist = [
+#         {'queryset': Room.objects.all(), 'serializer_class': RoomSerializer},
+#         {'queryset': Booking.objects.all(), 'serializer_class': BookingSerializer},
+#         {'queryset': Review.objects.all(), 'serializer_class': ReviewSerializer},
+#         {'queryset': Payment.objects.all(), 'serializer_class': PaymentSerializer},
+#     ]
 #
 #
 # router = routers.DefaultRouter()
 # router.register('api', BookingAPIView, basename='api')
+
+class BookingAPIView(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+
+
+class RoomAPIView(viewsets.ModelViewSet):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+
+class ReviewAPIView(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+
+class PaymentAPIView(viewsets.ModelViewSet):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+
+
+router = routers.DefaultRouter()
+router.register('api/booking', BookingAPIView, basename='api_booking')
+router.register('api/room', RoomAPIView, basename='api_room')
+router.register('api/review', ReviewAPIView, basename='api_review')
+router.register('api/payment', PaymentAPIView, basename='api_payment')
+
+
 
 
