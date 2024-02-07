@@ -24,9 +24,9 @@ SECRET_KEY = 'django-insecure-ovh6xg69vrrmrq0_)5q+g2-1b+0%x6-p%6hz26ar$ai8v3ra!j
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
-#ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.30', 'localhost'] Вот это ip адрес моего пк, чтоб я мог с
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.30', 'localhost'] #Вот это ip адрес моего пк, чтоб я мог с
 # телефона смотреть как смотриться
 
 
@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'booking_app',
     'drf_multiple_model',
     'rest_framework',
-    'django_extensions'
+    'django_extensions',
+    'api',
+
 ]
 
 MIDDLEWARE = [
@@ -125,7 +127,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-
+STATIC_ROOT = 'E:/Py/Диплом/booking_app/my_booking_project/static/'
 
 
 # Default primary key field type
@@ -138,7 +140,6 @@ MEDIA_URL = '/media/'
 
 # Физический путь к директории, где будут храниться медиа-файлы
 MEDIA_ROOT = BASE_DIR / 'media'
-
 
 LOGGING = {
     'version': 1,
@@ -165,3 +166,9 @@ LOGGING = {
         },
     },
 }
+
+try:
+    from .local_settings import *
+except ImportError:
+    print('No local file')
+
