@@ -47,9 +47,10 @@ class Review(models.Model):
 class Booking(models.Model):
     id_user = models.ForeignKey(User, on_delete=models.CASCADE)  # id покупателя
     room_number = models.ForeignKey(Room, to_field='number', on_delete=models.CASCADE)  # Номер комнаты
-    check_in_date = models.DateField(auto_now_add=True)  #
-    check_out_date = models.DateField(auto_now_add=True)  #
+    check_in_date = models.DateField()
+    check_out_date = models.DateField()
     total_cost = models.DecimalField(max_digits=12, decimal_places=1)  # Стоимость
+    is_paid = models.BooleanField(default=False)
 
     def __str__(self):
         return f'Id номер покупателя {self.id_user}'

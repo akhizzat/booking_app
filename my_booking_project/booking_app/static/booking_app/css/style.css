@@ -4,8 +4,6 @@ body{
 .overlay-form {
 
     position: absolute;
-
-
     color: white;
     background: rgba(0, 0, 0, 0.5);
     padding: 1rem;
@@ -31,14 +29,14 @@ body{
     margin: 10px; /* Расстояние между элементами формы */
 }
 
-/*.form-item label{*/
+
 
 /*    display: flex;*/
 /*    flex-direction: column;*/
 /*}*/
 
 #checkin-date, #checkout-date, #room-type, #guests{
-    color: #FFFFFF
+    color: white
 }
 
 div.fullscreen-img {
@@ -106,4 +104,40 @@ img {
 
 
 }
+
+.rooms-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.room {
+    width: calc(33.333% - 10px); /* Вычисляем ширину, чтобы вместить три комнаты в ряд, с учетом отступов */
+    margin-bottom: 20px; /* Отступ снизу для каждой комнаты */
+}
+.room img {
+    width: 100%; /* Чтобы изображение комнаты адаптировалось к ширине контейнера */
+    height: auto;
+}
+
+
+.error-message {
+    color: red;
+    font-size: 0.8em;
+    position: absolute;
+    top: 100%; /* Позиционируем ниже поля ввода */
+    left: 50%; /* Центрируем относительно поля ввода */
+    transform: translateX(-50%); /* Сдвигаем влево на половину своей ширины для центрирования */
+    display: none;
+    background: rgba(255, 255, 255, 0.9); /* Изменено для лучшей видимости */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    white-space: nowrap; /* Предотвращает перенос текста на новую строку */
+    max-width: calc(100% -webkit-fill-available); /* Максимальная ширина, минус паддинги */
+    box-sizing: border-box; /* Учитываем паддинги и границы в ширине */
+}
+
+
 

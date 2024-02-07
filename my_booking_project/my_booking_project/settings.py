@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'booking_app',
     'drf_multiple_model',
     'rest_framework',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,30 @@ MEDIA_URL = '/media/'
 
 # Физический путь к директории, где будут храниться медиа-файлы
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': './log/django.log',
+            'encoding': 'utf-8'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+        'booking_app': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}

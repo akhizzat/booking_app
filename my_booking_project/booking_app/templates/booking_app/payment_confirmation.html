@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Подтверждение оплаты{% endblock %}
+
+{% block content %}
+<h2>Подтверждение оплаты</h2>
+<form action="{% url 'process_payment' booking_id=booking_id %}" method="post">
+    {% csrf_token %}
+    <p>Общая стоимость: {{ total_cost }}</p>
+<!--    <input type="hidden" name="amount" value="{{ total_cost }}" />-->
+    <label for="payment_method">Выберите метод оплаты:</label>
+    <select name="payment_method" id="payment_method">
+        <option value="credit_card">Кредитная карта</option>
+        <option value="bank_transfer">Банковский перевод</option>
+        <!-- Добавьте другие методы оплаты -->
+    </select>
+    <button type="submit">Оплатить</button>
+</form>
+{% endblock %}

@@ -4,14 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea3d69ce-abf4-4eb2-a75e-bd55c9a10a18" name="Changes" comment="Home and Rooms">
-      <change afterPath="$PROJECT_DIR$/my_booking_project/booking_app/migrations/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="ea3d69ce-abf4-4eb2-a75e-bd55c9a10a18" name="Changes" comment="DataBase_last_version">
+      <change afterPath="$PROJECT_DIR$/my_booking_project/booking_app/templates/booking_app/booking.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_booking_project/booking_app/templates/booking_app/payment_confirmation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_booking_project/booking_app/templates/booking_app/payment_success.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/my_booking_project/booking_app/templates/booking_app/process_payment.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_booking_project/booking_app/migrations/0002_alter_room_category.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_booking_project/booking_app/migrations/0003_booking_payment_review.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_booking_project/booking_app/migrations/0004_rename_user_id_booking_id_user_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_booking_project/db_booking.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_booking_project/booking_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_booking_project/booking_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_booking_project/booking_app/static/booking_app/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/my_booking_project/booking_app/static/booking_app/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_booking_project/booking_app/templates/booking_app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/my_booking_project/booking_app/templates/booking_app/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_booking_project/booking_app/templates/booking_app/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/my_booking_project/booking_app/templates/booking_app/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_booking_project/booking_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_booking_project/booking_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_booking_project/booking_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_booking_project/booking_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_booking_project/db_booking.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/my_booking_project/db_booking.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_booking_project/my_booking_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_booking_project/my_booking_project/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_booking_project/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/my_booking_project/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +28,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -41,22 +48,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/LENOVO/Desktop/GeekBrains/ДИПЛОМ_файлы/Diplom_example",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/LENOVO/Desktop/GeekBrains/DJANGO_seminars&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\media\room_images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project" />
       <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\booking_app" />
       <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\booking_app\templates\booking_app" />
       <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\booking_app\templates" />
@@ -88,11 +96,20 @@
       <option name="project" value="LOCAL" />
       <updated>1706737545007</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="DataBase_last_version">
+      <option name="closed" value="true" />
+      <created>1706909393915</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706909393915</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Home and Rooms" />
-    <option name="LAST_COMMIT_MESSAGE" value="Home and Rooms" />
+    <MESSAGE value="DataBase_last_version" />
+    <option name="LAST_COMMIT_MESSAGE" value="DataBase_last_version" />
   </component>
 </project>

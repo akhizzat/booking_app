@@ -6,14 +6,19 @@
 
 {% block content %}
 <!-- Список доступных номеров -->
-<div class="available-rooms">
+<div class="rooms-container">
     {% for room in rooms %}
+        {% if forloop.counter0|divisibleby:3 and not forloop.first %}
+            </div><div class="rooms-container">
+        {% endif %}
         <div class="room">
             <h2>Room Number: {{ room.number }}</h2>
             <img src="{{ room.image.url }}" alt="Room image">
             <p>Type: {{ room.category }}</p>
             <p>Price: {{ room.price }}</p>
+            <a href="{% url 'booking' room.id %}">Забронировать</a>
         </div>
     {% endfor %}
+
 </div>
 {% endblock %}
