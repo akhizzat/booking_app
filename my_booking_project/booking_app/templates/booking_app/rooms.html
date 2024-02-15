@@ -8,8 +8,11 @@
         <h1>Our Rooms</h1>
         <div class="grid">
             {% for room in rooms %}
+
             <article>
+                {% if room.image_url%}
                 <img src="{{ room.image_url.url}}" alt="Фото номера" />
+                {% endif %}
                 <h2>{{ room.type }} #{{ room.number }}</h2>
                 <p>Type: {{ room.type }}</p>
                 <p>Price: ${{ room.price }} per night</p>

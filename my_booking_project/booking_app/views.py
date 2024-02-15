@@ -117,7 +117,7 @@ def booking(request, room_id):
         surname = request.POST.get('surname')
         age = request.POST.get('age')
         phone = request.POST.get('phone')
-        check_in_date = request.POST.get('check_in_date')
+        check_in_date = request.POST.get('check_iзn_date')
         check_out_date = request.POST.get('check_out_date')
 
         # Конвертация дат
@@ -262,6 +262,8 @@ router.register('api/booking', BookingAPIView, basename='api_booking')
 router.register('api/room', RoomAPIView, basename='api_room')
 router.register('api/review', ReviewAPIView, basename='api_review')
 router.register('api/payment', PaymentAPIView, basename='api_payment')
+
+
 
 
 

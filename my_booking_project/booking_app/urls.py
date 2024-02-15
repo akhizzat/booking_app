@@ -1,9 +1,12 @@
-from django.template.defaulttags import url
+
 from django.urls import path, include
 from . import views
-from drf_multiple_model.viewsets import ObjectMultipleModelAPIViewSet
-from rest_framework import routers
 
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularSwaggerView,
+    SpectacularRedocView
+)
 from .views import router
 
 urlpatterns = [
@@ -21,6 +24,19 @@ urlpatterns = [
 ] + router.urls
 
 
-
+urlpatterns += [
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Optional UI:
+    path(
+        'api/schema/swagger-ui/',
+        SpectacularSwaggerView.as_view(url_name='schema'),
+        name='swagger-ui'
+    ),
+    path(
+        'api/schema/redoc/',
+        SpectacularRedocView.as_view(url_name='schema'),
+        name='redoc'
+    ),
+]
 
 
