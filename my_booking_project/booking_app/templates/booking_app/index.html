@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Главная{% endblock %}
+{% block title %}
+    <title>Главная</title>
+{% endblock %}
 
 {% block head %}
-
+<script src="{% static 'booking_app/js/validation.js' %}" defer></script>
 {% endblock %}
 
 {% block content %}
 <div>
     <div class="fullscreen-img">
-        <img src="https://source.unsplash.com/featured/?hotel" alt="Hotel Image" class="fullscreen-img" />
+        <img src="{% static 'booking_app/images/home.jpg' %}" alt="Hotel Image" class="fullscreen-img" />
         <div>
             <div class="overlay-form">
                 {% if error_message %}
@@ -20,84 +22,49 @@
                 {% endif %}
             <form action="{% url 'search_rooms' %}" method="get" onclick="clearErrorMessage()">
             <div class="form-item">
-                <label for="checkin-date">Check-In Date:</label>
+                <label for="checkin-date">Дата заезда:</label>
                 <input type="date" id="checkin-date" name="checkin-date" required onchange="validateDates()">
             </div>
             <div class="form-item" style="position: relative;">
-                <label for="checkout-date">Check-Out Date:</label>
+                <label for="checkout-date">Дата выезда:</label>
                 <input type="date" id="checkout-date" name="checkout-date" required onchange="validateDates()">
                 <p id="dates-error-message" class="error-message" style="display: none;"></p>
             </div>
             <div class="form-item">
-                <label for="room-type">Room Type:</label>
+                <label for="room-type">Тип номера:</label>
                 <select id="room-type" name="room-type">
-                    <option value="single">Single</option>
-                    <option value="double">Double</option>
-                    <option value="family">Family</option>
-                    <option value="luxury">Luxury</option>
+                    <option value="single">Одноместный</option>
+                    <option value="double">Двухместный</option>
+                    <option value="family">Семейный</option>
+                    <option value="luxury">Люкс</option>
                 </select>
             </div>
-            <div class="form-item" style="position: relative;">
-                <label for="guests">Number of Guests:</label>
-                <input type="number" id="guests" name="guests" min="1" max="10" required oninput="validateGuests(this)">
-                <p id="guests-error-message" class="error-message" style="display: none;"></p>
+            <div class="form-item">
+                <label for="adults">Взрослые:</label>
+                <input type="number" id="adults" name="adults" min="1" max="10" required oninput="validateGuests(this)" value="1">
+            </div>
+            <div class="form-item">
+                <label for="children">Дети:</label>
+                <input type="number" id="children" name="children" min="0" max="10" required oninput="validateGuests(this)" value="0">
+            </div>
+            <p id="guests-error-message" class="error-message" style="display: none;"></p>
+            <div class="form-item">
+                <label for="food-type">Тип питания:</label>
+                <select id="food-type" name="food-type">
+                    <option value="breakfast">Завтрак</option>
+                    <option value="half-board">Полупансион</option>
+                    <option value="full-board">Полный пансион</option>
+                </select>
             </div>
             <div class="form-item">
                 <br>
-                <button type="submit" class="button-primary">Search</button>
+                <button type="submit" class="button-primary">Поиск</button>
             </div>
             </form>
         </div>
         </div>
-
     </div>
-
 </div>
-<script>
-       function validateGuests(input) {
-            var maxGuests = {
-                'single': 1,
-                'double': 2,
-                'family': 4,
-                'luxury': 5
-            };
-            var roomType = document.getElementById('room-type').value;
-            var guests = input.value;
-            var errorMessage = document.getElementById('guests-error-message');
-
-            if (guests > maxGuests[roomType]) {
-                errorMessage.textContent = 'Превышено максимальное количество гостей для типа ' + roomType + '.';
-                errorMessage.style.display = 'block';
-            } else {
-                errorMessage.style.display = 'none';
-            }
-        }
-
-    function validateDates() {
-        var checkInDate = document.getElementById('checkin-date').value;
-        var checkOutDate = document.getElementById('checkout-date').value;
-        var errorMessage = document.getElementById('dates-error-message');
-
-        if (checkInDate && checkOutDate && new Date(checkInDate) >= new Date(checkOutDate)) {
-            errorMessage.textContent = 'Дата выезда должна быть позже даты заезда.';
-            errorMessage.style.display = 'block';
-        } else {
-            errorMessage.style.display = 'none';
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const errorMessageDiv = document.getElementById('error-message');
-          if (errorMessageDiv && errorMessageDiv.textContent !== '') {
-            setTimeout(() => {
-              errorMessageDiv.style.display = 'none';
-            }, 1500); // 5000 миллисекунд = 5 секунд
-          }
-    });
-
-
-
-</script>
 {% endblock %}
 
 {% block footer %}

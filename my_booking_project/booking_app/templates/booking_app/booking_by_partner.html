@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Мои бронирования</h2>
+
+     <!-- Предполагается, что 'bookings' - это список бронирований, связанных с партнёром -->
+        {% if bookings %}
+            <ul>
+                {% for booking in bookings %}
+                    <li>
+                        Бронирование №{{ booking.id }}: {{ booking.room.category }} на даты {{ booking.check_in_date }} - {{ booking.check_out_date }}. Статус: {{ booking.is_paid|yesno:"Оплачено,Не оплачено" }}.
+                        <!-- Ссылка на оплату, если бронирование ещё не оплачено -->
+                        {% if not booking.is_paid %}
+                            <form action="{% url 'process_payment' booking.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                                <label for="payment_method">Выберите метод оплаты:</label>
+                                <select name="payment_method" id="payment_method">
+                                    <option value="credit_card">Кредитная карта</option>
+                                    <option value="bank_transfer">Банковский перевод</option>
+                                    <!-- Добавьте другие методы оплаты по необходимости -->
+                                </select>
+                            <button type="submit">Оплатить</button>
+                            </form>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>У вас нет активных бронирований.</p>
+        {% endif %}
+    </section>
+
+    <p><a href="{% url 'partner_dashboard' %}">Назад</a></p>
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Оплата успешно проведена{% endblock %}
+{% block title %}<title>Оплата успешно проведена</title>{% endblock %}
 
 {% block content %}
 {% if request.session.booking_info %}
@@ -9,6 +9,7 @@
     <p>Дата заезда: {{ request.session.booking_info.check_in_date }}</p>
     <p>Дата выезда: {{ request.session.booking_info.check_out_date }}</p>
     <p>Итого дней: {{ request.session.booking_info.total_nights }}</p>
+    <p>Питание: {{ request.session.booking_info.meal_plan }}</p>
     <p>К оплате: {{ request.session.booking_info.total_cost }} руб.</p>
     <a href="{% url 'home' %}">Вернуться на главную страницу</a>
 {% else %}

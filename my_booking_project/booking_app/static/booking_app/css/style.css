@@ -1,20 +1,19 @@
 body{
+     background-color: #e6f6fa; /* Пастельно-голубой цвет фона */
 
 }
 .overlay-form {
-
     position: absolute;
     color: white;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.8); /* Светлее фон */
     padding: 1rem;
     border-radius: 8px;
     display: flex;
     justify-content: center;
     gap: 1rem;
-
-
-
 }
+
+
 .overlay-form form{
 
     display: flex;
@@ -36,7 +35,7 @@ body{
 /*}*/
 
 #checkin-date, #checkout-date, #room-type, #guests{
-    color: white
+    color: #415462
 }
 
 div.fullscreen-img {
@@ -72,19 +71,23 @@ img.fullscreen-img {
 }
 
 .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem; /* Расстояние между элементами грида */
+    padding: 0 1rem; /* Отступы для всего грида, чтобы добавить пространство по бокам */
+
 }
+
 article {
         border: 1px solid #ccc;
         border-radius: 0.5rem;
         padding: 1rem;
 }
 img {
-        max-width: 100%;
-        height: auto;
+        width: 300px;
+        height: 200px;
         border-radius: 0.5rem;
+        object-fit: cover;
 }
 @media (max-width: 800px) {
     .grid {
@@ -100,16 +103,17 @@ img {
     flex-direction: column; /* Измените на row, чтобы сделать расположение горизонтальным */
         align-items: center;
 
-}
-
-
+    }
 }
 
 .rooms-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap: 30px;
+    justify-content: center;
 }
+
+
 .room {
     width: calc(33.333% - 10px); /* Вычисляем ширину, чтобы вместить три комнаты в ряд, с учетом отступов */
     margin-bottom: 20px; /* Отступ снизу для каждой комнаты */
@@ -125,7 +129,7 @@ img {
     font-size: 0.8em;
     position: absolute;
     top: 100%; /* Позиционируем ниже поля ввода */
-    left: 50%; /* Центрируем относительно поля ввода */
+    left: 68%; /* Центрируем относительно поля ввода */
     transform: translateX(-50%); /* Сдвигаем влево на половину своей ширины для центрирования */
     display: none;
     background: rgba(255, 255, 255, 0.9); /* Изменено для лучшей видимости */
@@ -137,7 +141,284 @@ img {
     white-space: nowrap; /* Предотвращает перенос текста на новую строку */
     max-width: calc(100% -webkit-fill-available); /* Максимальная ширина, минус паддинги */
     box-sizing: border-box; /* Учитываем паддинги и границы в ширине */
+
+}
+
+
+#guests-error-message {
+
+    display: inline-block; /* Делаем сообщения инлайн-блочными для выравнивания */
+    margin: 0 10px; /* Добавляем немного пространства между сообщениями */
+    background: background: rgba(255, 255, 255, 0.9); /* Чтобы сообщения выделялись на фоне страницы */
+    padding: 5px;
+    border-radius: 5px;
+    top: 71%;
+
 }
 
 
 
+.room {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+.room img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+.room h2 {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+}
+.room p {
+    margin: 10px 0;
+}
+.room a {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+.room a:hover {
+    background-color: #0056b3;
+}
+
+
+.back-link-container {
+    position: fixed; /* Фиксированное позиционирование относительно окна браузера */
+    left: 10%; /* Выравнивание на 15% правее от левого края */
+    bottom: 15%; /* Выравнивание на 20% выше от нижнего края */
+    padding: 10px; /* Небольшой отступ для визуального комфорта */
+}
+
+.room img {
+    display: block; /* Изображение блочного типа, чтобы можно было применить авто-маргины */
+    margin-left: auto; /* Автоматический отступ слева */
+    margin-right: auto; /* Автоматический отступ справа */
+    max-width: 100%; /* Максимальная ширина, чтобы изображение не выходило за пределы контейнера */
+    height: 200px; /* Высота auto для сохранения пропорций изображения */
+}
+
+
+
+.modal {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    display: flex;
+    width: auto; /* Убедитесь, что изображение не слишком большое */
+    max-width: 80%; /* Начальный размер изображения */
+    max-height: 80vh; /* Ограничиваем высоту */
+    margin: auto;
+
+
+}
+
+.close {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    z-index: 2; /* Убедитесь, что крестик всегда поверх изображения */
+}
+
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.grid img {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.grid img:hover {
+    transform: scale(1.05);
+}
+
+
+/* Стили для контейнера футера, чтобы выровнять логотип и текст слева */
+.logo {
+    width: 100px; /* Установите ширину, соответствующую вашему дизайну */
+    height: auto; /* Автоматический для поддержания пропорций */
+    margin-right: 10px; /* Отступ справа */
+    transform: scale(1.15); /* Увеличение на 15% */
+    transform-origin: left; /* Начало масштабирования с левой стороны */
+}
+
+/* Стили для контейнера, чтобы выровнять содержимое и логотип слева */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Добавлено для выравнивания содержимого контейнера слева */
+    text-align: left;
+}
+
+/* Стили для футера */
+footer {
+    background-color: #ADD8E6;
+    color: white;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Выравнивание элементов контейнера по левому краю */
+    text-align: left;
+    padding-left: 100px; /* Отступ слева, чтобы логотип не прилипал к краю экрана */
+}
+
+
+.footer-logo {
+    width: 100px; /* Установите ширину, соответствующую вашему дизайну */
+    height: auto; /* Автоматический для поддержания пропорций */
+    margin-right: 100px; /* Отступ справа */
+    transform: scale(1.35); /* Увеличение на 15% */
+    transform-origin: left; /* Начало масштабирования с левой стороны */
+}
+
+
+/* Стили для раздела SPA */
+.spa-section {
+    display: flex;
+    flex-wrap: wrap; /* Добавим wrap для адаптивности */
+    align-items: center;
+    gap: 20px; /* Расстояние между текстом и изображением */
+}
+
+.spa-content {
+    flex: 1;
+    min-width: 500px; /* Минимальная ширина текстового блока */
+}
+
+.spa-image {
+    flex: 2;
+    min-width: 300px; /* Минимальная ширина блока с изображением */
+}
+
+.spa-image img {
+    width: 100%;
+    height: auto; /* Сохраняем пропорции изображения */
+    max-width: 600px; /* Максимальная ширина изображения */
+    margin-bottom: 10px; /* Отступ снизу для каждого изображения */
+    margin-top: 40px;
+}
+
+/* Стили для раздела акций */
+.grid-stocks {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* Стили для раздела акций */
+.grid-stocks {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Стили для отдельной акции */
+.stock-item {
+    display: flex;
+    justify-content: space-between; /* Распределение свободного пространства между элементами */
+    align-items: center;
+    margin-bottom: 20px; /* Отступ между акциями */
+}
+
+/* Стили для текста акции */
+.stock-text {
+    flex: 1;
+    max-width: 600px; /* Максимальная ширина текста, если нужно */
+    margin-right: 40px; /* Увеличиваем отступ справа, чтобы отодвинуть текст от изображения */
+}
+
+/* Стили для изображения акции */
+.stock-image {
+    flex: 1.5; /* Больше пространства для изображения */
+    max-width: 100%; /* Позволяет изображению растягиваться на всю возможную ширину */
+}
+.stock-image img {
+    width: 100%; /* Ширина изображения относительно его контейнера */
+    height: auto; /* Сохранение пропорций изображения */
+}
+
+/* Стили для раздела "О нас" */
+.grid-about {
+    display: flex;
+    flex-wrap: wrap; /* Обеспечиваем адаптивность, позволяя элементам обтекать друг друга */
+}
+
+.about-item {
+    display: flex;
+    justify-content: space-between; /* Распределение пространства между текстом и изображениями */
+    align-items: flex-start; /* Выравнивание элементов в начале контейнера */
+    gap: 20px; /* Расстояние между текстовым блоком и блоком с изображениями */
+}
+
+.about-text {
+    flex: 1; /* Текстовый блок занимает 1 часть доступного пространства */
+    padding-right: 20px; /* Отступ справа от текстового блока */
+}
+
+.about-image {
+    flex: 1.5; /* Блок с изображениями занимает 1 часть доступного пространства */
+    display: flex;
+    flex-direction: column; /* Стекаем изображения вертикально */
+    gap: 20px; /* Расстояние между изображениями */
+
+}
+
+.about-image img {
+    width: 100%; /* Ширина изображения относительно его контейнера */
+    height: auto; /* Сохранение пропорций изображения */
+    margin-bottom: 10px; /* Отступ снизу для каждого изображения */
+    margin-top: 40px;
+}
+
+.contact-section {
+    padding: 20px;
+}
+
+.contact-info {
+    margin-bottom: 20px;
+}
+
+.map-container {
+    width: 100%;
+    height: 400px; /* Вы можете изменить размеры под свои нужды */
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+}
