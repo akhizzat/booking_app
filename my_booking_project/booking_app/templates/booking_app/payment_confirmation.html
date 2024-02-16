@@ -1,3 +1,4 @@
+payment_confirmation.html:
 {% extends 'base.html' %}
 
 {% block title %}
@@ -6,6 +7,9 @@
 
 {% block content %}
 <h2>Подтверждение оплаты</h2>
+{% if discount_message %}
+    <p><strong>Сообщение:</strong> {{ discount_message }}</p>
+{% endif %}
 <form action="{% url 'process_payment' booking_id=booking_id %}" method="post">
     {% csrf_token %}
     <p>Общая стоимость: {{ total_cost }}</p>

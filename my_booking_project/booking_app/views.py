@@ -66,8 +66,14 @@ def reviews(request):
 def payment_success(request, booking_id):
     # Получаем объект бронирования по переданному ID
     booking = get_object_or_404(Booking, pk=booking_id)
-    # Отрисовываем шаблон, передавая в него объект бронирования
-    return render(request, 'booking_app/payment_success.html', {'booking': booking})
+    booking_info = request.session.get('booking_info', {})
+
+    # Проверяем, есть ли информация о скидке в сессии
+    discount_message = booking_info.get('discount_message', None)
+    return render(request, 'booking_app/payment_success.html', {
+        'booking': booking,
+        'discount_message': discount_message
+    })
 
 
 def rooms(request):
@@ -90,66 +96,81 @@ def rooms(request):
     return render(request, 'booking_app/rooms.html', {'rooms': rooms, 'meal_plan': meal_plan})
 
 
+# Поиск доступных номеров для неавторизованных пользователей
+
 def search_rooms(request):
     checkin_date = request.GET.get('checkin-date')
     checkout_date = request.GET.get('checkout-date')
     room_type = request.GET.get('room-type')
-    adults = int(request.GET.get('adults', 0))  # Преобразование в число, 0 по умолчанию
-    children = int(request.GET.get('children', 0))  # Преобразование в число, 0 по умолчанию
-    total_guests = adults + children  # Суммарное количество гостей
+    adults = int(request.GET.get('adults', 0))
+    children = int(request.GET.get('children', 0))
+    total_guests = adults + children
 
-    # Проверка корректности дат
     if checkin_date and checkout_date:
         checkin_date_parsed = datetime.strptime(checkin_date, '%Y-%m-%d').date()
         checkout_date_parsed = datetime.strptime(checkout_date, '%Y-%m-%d').date()
+
         if checkout_date_parsed <= checkin_date_parsed:
+            return render(request, 'booking_app/index.html',
+                          {'error_message': 'Дата выезда должна быть позже даты заезда.'})
+
+        # Проверка на максимальное количество гостей для выбранного типа комнаты
+        if room_type in MAX_GUESTS_PER_ROOM_TYPE and total_guests > MAX_GUESTS_PER_ROOM_TYPE[room_type]:
+            # Если есть ошибка, добавляем сообщение об ошибке в контекст шаблона
             context = {
-                'error_message': 'Дата выезда должна быть позже даты заезда.',
+                'error_message': f'Превышено максимальное количество гостей для типа {room_type}.',
             }
 
             return render(request, 'booking_app/index.html', context)
 
-    # Проверка на максимальное количество гостей для выбранного типа комнаты
-    if room_type in MAX_GUESTS_PER_ROOM_TYPE and total_guests > int(MAX_GUESTS_PER_ROOM_TYPE[room_type]):
-        # Если есть ошибка, добавляем сообщение об ошибке в контекст шаблона
-        context = {
-            'error_message': f'Превышено максимальное количество гостей для типа {room_type}.',
-        }
+    # Применение скидки, если количество детей 3 и более
+    discount = Decimal('0.15') if children >= 3 else Decimal('0')
+    discount_message = "У Вас скидка 15% по акции 'Большая семья'!" if discount > 0 else None
 
-        return render(request, 'booking_app/index.html', context)
-
-    # Фильтрация доступных номеров по дате и оплате
+    # Поиск забронированных номеров
     booked_rooms = Booking.objects.filter(
         Q(check_in_date__lte=checkout_date, check_out_date__gte=checkin_date),
         is_paid=True
     ).values_list('room_number', flat=True)
 
-    available_rooms_query = Room.objects.exclude(
+    # Фильтрация доступных номеров
+    available_rooms = Room.objects.exclude(
         number__in=booked_rooms
     ).filter(
-        category=room_type if room_type else Room.objects.none(),
+        category=room_type if room_type else None,
         guests__gte=total_guests
     )
 
-    available_rooms = available_rooms_query.all()
     meal_plans = MealPlan.objects.all()
-
-    # Для каждого доступного номера вычислить цены с разными тарифами питания
     rooms_with_meals = []
+
     for room in available_rooms:
         room_meals = {}
         for meal_plan in meal_plans:
-            room_meals[meal_plan.type] = room.calculate_total_price(meal_plan.type)
+            original_price = room.calculate_total_price(meal_plan.type)
+            discounted_price = original_price - (original_price * discount) if discount > 0 else original_price
+            room_meals[meal_plan.type] = discounted_price
         rooms_with_meals.append({
             'room': room,
             'meals': room_meals
         })
 
-    return render(request, 'booking_app/search.html', {'rooms_with_meals': rooms_with_meals})
+    context = {
+        'rooms_with_meals': rooms_with_meals,
+        'discount_message': discount_message,
+
+    }
+    request.session['discount'] = {
+        'value': float(discount),
+        'message': discount_message,
+        'children': children  # Сохраняем количество детей в сессии
+    }
+    request.session.modified = True
+
+    return render(request, 'booking_app/search.html', context)
 
 
-def search_rooms_partner(request):
-    return render(request, 'booking_app/search_rooms.html')
+# Форма поиска для Партнеров
 
 
 def booking_from_search(request):
@@ -166,59 +187,87 @@ def booking_from_search(request):
     checkin_date = request.session.get('checkin_date')
     checkout_date = request.session.get('checkout_date')
 
-    # Инициализация контекста для шаблона
-    context = {}
-
-    try:
-        # Проверка и преобразование дат
-        if checkin_date and checkout_date:
-            checkin_date_parsed = datetime.strptime(checkin_date, '%Y-%m-%d').date()
-            checkout_date_parsed = datetime.strptime(checkout_date, '%Y-%m-%d').date()
-            if checkout_date_parsed <= checkin_date_parsed:
-                context = {
-                    'error_message': 'Дата выезда должна быть позже даты заезда.',
-                }
-
-                return render(request, 'booking_app/search_rooms.html', context)
-
-        # Проверка на максимальное количество гостей для выбранного типа комнаты
-        if room_type in MAX_GUESTS_PER_ROOM_TYPE and total_guests > MAX_GUESTS_PER_ROOM_TYPE[room_type]:
-            # Если есть ошибка, добавляем сообщение об ошибке в контекст шаблона
+    # Проверка и преобразование дат
+    if checkin_date and checkout_date:
+        checkin_date_parsed = datetime.strptime(checkin_date, '%Y-%m-%d').date()
+        checkout_date_parsed = datetime.strptime(checkout_date, '%Y-%m-%d').date()
+        if checkout_date_parsed <= checkin_date_parsed:
             context = {
-                'error_message': f'Превышено максимальное количество гостей для типа {room_type}.',
+                'error_message': 'Дата выезда должна быть позже даты заезда.',
             }
 
             return render(request, 'booking_app/search_rooms.html', context)
 
-        # Фильтрация доступных номеров
-        booked_rooms = Booking.objects.filter(
-            Q(check_in_date__lte=checkout_date, check_out_date__gte=checkin_date),
-            is_paid=True
-        ).values_list('room_number', flat=True)
+    # Проверка на максимальное количество гостей для выбранного типа комнаты
+    if room_type in MAX_GUESTS_PER_ROOM_TYPE and total_guests > MAX_GUESTS_PER_ROOM_TYPE[room_type]:
+        # Если есть ошибка, добавляем сообщение об ошибке в контекст шаблона
+        context = {
+            'error_message': f'Превышено максимальное количество гостей для типа {room_type}.',
+        }
 
-        available_rooms_query = Room.objects.exclude(
-            number__in=booked_rooms
-        ).filter(
-            category=room_type if room_type else None,
-            guests__gte=total_guests
-        )
+        return render(request, 'booking_app/search_rooms.html', context)
 
-        # Собираем информацию о доступных номерах и планах питания
-        rooms_with_meals = [{
+    # Применение скидки, если количество детей 3 и более
+    discount = Decimal('0.15') if children >= 3 else Decimal('0')
+    discount_message = "У Вас скидка 15% по акции 'Большая семья'!" if discount > 0 else None
+
+    # Фильтрация доступных номеров
+    booked_rooms = Booking.objects.filter(
+        Q(check_in_date__lte=checkout_date, check_out_date__gte=checkin_date),
+        is_paid=True
+    ).values_list('room_number', flat=True)
+
+    available_rooms = Room.objects.exclude(
+        number__in=booked_rooms
+    ).filter(
+        category=room_type if room_type else None,
+        guests__gte=total_guests
+    )
+
+    # Собираем информацию о доступных номерах и планах питания
+
+    meal_plans = MealPlan.objects.all()
+    rooms_with_meals = []
+
+    for room in available_rooms:
+        room_meals = {}
+        for meal_plan in meal_plans:
+            original_price = room.calculate_total_price(meal_plan.type)
+            discounted_price = original_price - (original_price * discount) if discount > 0 else original_price
+            room_meals[meal_plan.type] = round(discounted_price,2)
+        rooms_with_meals.append({
             'room': room,
-            'meals': {meal_plan.type: room.calculate_total_price(meal_plan.type) for meal_plan in
-                      MealPlan.objects.all()}
-        } for room in available_rooms_query]
+            'meals': room_meals
+        })
 
-        context['rooms_with_meals'] = rooms_with_meals
-    except ValueError as e:
-        context['error_message'] = str(e)
+    context = {
+        'rooms_with_meals': rooms_with_meals,
+        'discount_message': discount_message,
+
+    }
+    request.session['discount'] = {
+        'value': float(discount),
+        'message': discount_message,
+        'children': children  # Сохраняем количество детей в сессии
+    }
+    request.session.modified = True
 
     return render(request, 'booking_app/search_partner.html', context)
 
 
+# Вывод доступных номеров для Партнеров
+
+def search_rooms_partner(request):
+    return render(request, 'booking_app/search_rooms.html')
+
+
 @login_required
 def create_booking_and_redirect_to_payment(request):
+    discount_info = request.session.get('discount', {'value': 0, 'message': None, 'children': 0})
+    discount = Decimal(discount_info['value'])
+    # Здесь мы получаем количество детей из сессии
+    children = discount_info['children']
+
     try:
         room_id = request.GET.get('room_id')
         check_in_date = request.GET.get('check_in_date')
@@ -252,6 +301,11 @@ def create_booking_and_redirect_to_payment(request):
         total_days = (check_out_date_parsed - check_in_date_parsed).days
         total_cost = room.calculate_total_price(meal_plan.type) * total_days
 
+        # Применяем скидку, если количество детей 3 и более
+        if children >= 3:
+            total_cost -= total_cost * discount
+            total_cost = round(total_cost, 2)
+
         # Создание объекта бронирования
         booking = Booking.objects.create(
             user=request.user,
@@ -262,8 +316,12 @@ def create_booking_and_redirect_to_payment(request):
             total_cost=total_cost,
             is_paid=False
         )
+        request.session['booking_info'] = {
+            'booking_id': booking.id,
+            'discount_message': discount_info['message'],
+            'total_cost': str(total_cost)
+        }
 
-        request.session['booking_id'] = booking.id
         # Перенаправление на страницу подтверждения оплаты
         return redirect('payment_confirmation')
     except Exception as e:
@@ -271,40 +329,49 @@ def create_booking_and_redirect_to_payment(request):
         return render(request, 'booking_app/error.html', {'error_message': str(e)})
 
 
-def calculate_total_cost(room_id, meal_plan_type, check_in_date, check_out_date):
-    room = get_object_or_404(Room, id=room_id)
-    meal_plan = get_object_or_404(MealPlan, type=meal_plan_type)
-    total_days = (check_out_date - check_in_date).days
-    total_cost = room.calculate_total_price(meal_plan.type) * total_days
-    return total_cost
+# def calculate_total_cost(room_id, meal_plan_type, check_in_date, check_out_date):
+#     room = get_object_or_404(Room, id=room_id)
+#     meal_plan = get_object_or_404(MealPlan, type=meal_plan_type)
+#     total_days = (check_out_date - check_in_date).days
+#     total_cost = room.calculate_total_price(meal_plan.type) * total_days
+#     return total_cost
 
 
 def booking(request, room_id):
     room = get_object_or_404(Room, pk=room_id)
     error_message = None
+    discount_info = request.session.get('discount', {'value': 0, 'message': None, 'children': 0})
+    discount = Decimal(discount_info['value'])
+    # Здесь мы получаем количество детей из сессии
+    children = discount_info['children']
 
     if request.method == 'POST':
         name = request.POST.get('name')
         surname = request.POST.get('surname')
-
         email = request.POST.get('email')
         passport_details = request.POST.get('passport_details')
         phone_number = request.POST.get('phone_number')
         check_in_date = request.POST.get('check_in_date')
-
-
         check_out_date = request.POST.get('check_out_date')
         meal_plan_type = request.POST.get('meal_plan')
 
-        check_in = datetime.strptime(check_in_date, "%Y-%m-%d").date()
-        check_out = datetime.strptime(check_out_date, "%Y-%m-%d").date()
+        try:
+            check_in = datetime.strptime(check_in_date, "%Y-%m-%d").date()
+            check_out = datetime.strptime(check_out_date, "%Y-%m-%d").date()
+        except ValueError:
+            return HttpResponse("Неверный формат даты.", status=400)
 
         if check_in >= check_out:
-            error_message = 'Дата выезда должна быть позже даты въезда.'
+            error_message = 'Дата выезда должна быть позже даты заезда.'
         else:
             meal_plan = MealPlan.objects.get(type=meal_plan_type)
             total_days = (check_out - check_in).days
             total_cost = room.calculate_total_price(meal_plan.type) * total_days
+
+            # Применяем скидку, если количество детей 3 и более
+            if children >= 3:
+                total_cost -= total_cost * discount
+                total_cost = round(total_cost, 2)
 
             if Booking.objects.filter(room_number=room, check_in_date__lte=check_out, check_out_date__gte=check_in,
                                       is_paid=True).exists():
@@ -330,9 +397,15 @@ def booking(request, room_id):
                         check_in_date=check_in,
                         check_out_date=check_out,
                         total_cost=total_cost,
-                        meal_plan=meal_plan
+                        meal_plan=meal_plan,
+                        is_paid=False
                     )
-                    request.session['booking_id'] = new_booking.id
+                    request.session['booking_info'] = {
+                        'booking_id': new_booking.id,
+                        'discount_message': discount_info['message'],
+                        'total_cost': str(total_cost)
+                    }
+                    request.session.modified = True
                     return redirect('payment_confirmation')
                 else:
                     error_message = 'Пользователь с таким email уже существует. Пожалуйста, используйте другой email.'
@@ -344,18 +417,24 @@ def booking(request, room_id):
 
 
 def payment_confirmation(request):
-    booking_id = request.session.get('booking_id')
-    if not booking_id:
-        # Обработка случая, когда booking_id отсутствует в сессии
+    booking_info = request.session.get('booking_info', {})
+    print(f'booking_info payment_confirmation {booking_info}')
+    if not booking_info:
+        # Обработка случая, когда информация о бронировании отсутствует в сессии
         return HttpResponse("Ошибка: Нет данных о бронировании.", status=400)
 
-    # Получите общую стоимость из объекта бронирования или другого источника, если это необходимо
+    booking_id = booking_info.get('booking_id')
+
+    total_cost = booking_info.get('total_cost')
+    discount_message = booking_info.get('discount_message', None)
+
     booking = get_object_or_404(Booking, id=booking_id)
-    total_cost = booking.total_cost
 
     context = {
+        'booking': booking,
+        'booking_id': booking_id,
         'total_cost': total_cost,
-        'booking_id': booking_id,  # Добавление booking_id в контекст
+        'discount_message': discount_message,
     }
     return render(request, 'booking_app/payment_confirmation.html', context)
 
@@ -363,7 +442,9 @@ def payment_confirmation(request):
 @require_POST
 def process_payment(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
-
+    booking_info = request.session.get('booking_info', {})
+    discount_message = booking_info.get('discount_message', None)
+    print(f'booking_info process_payment{booking_info}')
     if request.method == 'POST':
 
         payment_method = request.POST.get('payment_method')
@@ -387,7 +468,9 @@ def process_payment(request, booking_id):
             'check_out_date': booking.check_out_date.strftime("%Y-%m-%d"),
             'total_nights': (booking.check_out_date - booking.check_in_date).days,
             'total_cost': str(booking.total_cost),  # Преобразуем Decimal в строку для хранения в сессии
-            'meal_plan': str(booking.meal_plan)
+            'meal_plan': str(booking.meal_plan),
+            'discount_message': discount_message,
+
         }
 
         # Перенаправление на страницу успешной оплаты
@@ -561,10 +644,3 @@ router.register('api/booking', BookingAPIView, basename='api_booking')
 router.register('api/room', RoomAPIView, basename='api_room')
 router.register('api/review', ReviewAPIView, basename='api_review')
 router.register('api/payment', PaymentAPIView, basename='api_payment')
-
-
-
-
-
-
-

@@ -9,7 +9,7 @@
             <ul>
                 {% for booking in bookings %}
                     <li>
-                        Бронирование №{{ booking.id }}: {{ booking.room.category }} на даты {{ booking.check_in_date }} - {{ booking.check_out_date }}. Статус: {{ booking.is_paid|yesno:"Оплачено,Не оплачено" }}.
+                        Бронирование №{{ booking.id }}: {{ booking.room.category }} на даты {{ booking.check_in_date }} - {{ booking.check_out_date }}. Статус: {{ booking.is_paid|yesno:"Оплачено,Не оплачено" }}.  <strong>Оплаченная сумма {{ booking.total_cost}} руб.</strong>
                         <!-- Ссылка на оплату, если бронирование ещё не оплачено -->
                         {% if not booking.is_paid %}
                             <form action="{% url 'process_payment' booking.id %}" method="post">

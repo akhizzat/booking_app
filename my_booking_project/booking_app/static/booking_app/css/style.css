@@ -38,7 +38,7 @@ body{
     color: #415462
 }
 
-div.fullscreen-img {
+  div.fullscreen-img {
     margin: 0;
     padding: 0;
     position: relative;
@@ -47,12 +47,8 @@ div.fullscreen-img {
     overflow: hidden;
 
 }
-.fullscreen-img div{
 
-    display: flex;
-    justify-content: center;
-}
-img.fullscreen-img {
+    img.fullscreen-img {
 
     width: 100vw;
     height: 100vh;
@@ -62,6 +58,13 @@ img.fullscreen-img {
     top: 0;
     filter: brightness(60%);
 }
+
+.fullscreen-img div{
+
+    display: flex;
+    justify-content: center;
+}
+
 
 @media (max-width: 800px) {
     .overlay-form {
@@ -287,6 +290,7 @@ footer {
     color: white;
     padding: 20px 0;
     width: 100%;
+
 }
 
 .footer-container {
