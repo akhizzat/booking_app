@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Развлечения</title>
+{% endblock %}
+
+{% block head %}
+<script src="{% static 'booking_app/js/validation.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <div class="grid">
+        <section>
+            <hgroup>
+                <h2>Развлечения в нашем отеле</h2>
+                <h3>Опыт, который вы не забудете</h3>
+            </hgroup>
+            <p>Откройте для себя мир увлекательных приключений и развлечений прямо в нашем отеле. Мы предлагаем широкий выбор активностей для гостей любого возраста.</p>
+            <h3>Заказ экскурсий</h3>
+            <p>Исследуйте красоты нашего региона с профессиональными гидами. Выберите экскурсию по вашему вкусу и отправляйтесь в незабываемое путешествие.</p>
+            <figure>
+                <img src="{% static 'booking_app/images/excursion_1.jpeg' %}" alt="Экскурсии" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/excursion_2.jpeg' %}" alt="Экскурсии" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/excursion_4.jpg' %}" alt="Экскурсии" onclick="openModal(this.src)">
+                <p><strong>Режим работы:</strong> Ежедневно с 09:00 до 18:00</p>
+                <p><strong>Телефон для бронирования:</strong> +7 (999) 123-45-67</p>
+            </figure>
+            <h3>Спортивные мероприятия</h3>
+            <p>Любителям активного отдыха мы предлагаем разнообразие спортивных мероприятий в любое время года - от боулинга до конных прогулок.</p>
+            <figure>
+                <img src="{% static 'booking_app/images/bowling.jpg' %}" alt="Боулинг" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/fitness.jpg' %}" alt="Фитнес зал" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/riding_by_horse.jpg' %}" alt="Конные прогулки" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/swimming_pool.jpg' %}" alt="Бассейн" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/football.jpg' %}" alt="Футбол" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/ice_rink.jpg' %}" alt="Каток" onclick="openModal(this.src)">
+                <p><strong>Режим работы:</strong> Ежедневно с 10:00 до 22:00</p>
+                <p><strong>Телефон:</strong> +7 (999) 765-43-21</p>
+            </figure>
+            <h3>Каршеринг</h3>
+            <p>Исследуйте окрестности на собственном транспорте. Наш сервис каршеринга предоставит вам автомобиль на любой вкус и потребность.</p>
+            <figure>
+
+                <img src="{% static 'booking_app/images/carsharing.jpg' %}" alt="Каршеринг" onclick="openModal(this.src)">
+                <p><strong>Режим работы:</strong> Ежедневно с 08:00 до 22:00</p>
+                <p><strong>Телефон:</strong> +7 (999) 765-55-23</p>
+            </figure>
+            <h3>Детский городок</h3>
+            <p>Для наших маленьких гостей мы предлагаем веселый и безопасный детский городок, где они могут играть и наслаждаться отдыхом.</p>
+             <figure>
+                <img src="{% static 'booking_app/images/playground_1.jpg' %}" alt="Детский городок" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/playground_2.jpg' %}" alt="Детский городок" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/playground_3.jpg' %}" alt="Детский городок" onclick="openModal(this.src)">
+            </figure>
+
+        </section>
+    </div>
+</main>
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+</div>
+{% endblock %}

@@ -121,6 +121,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_URL = 'login'
+
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -128,6 +132,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATIC_ROOT = 'E:/Py/Диплом/booking_app/my_booking_project/static/'
+
+# settings.py
+
+AUTH_USER_MODEL = 'booking_app.User'
 
 
 # Default primary key field type

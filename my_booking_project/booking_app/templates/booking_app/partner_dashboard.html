@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Панель партнёра</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <p><a href="{% url 'login_or_register' %}">Выйти из профиля</a></p>
+    <h1>Добро пожаловать в панель партнёра, {{ request.user.username }}!</h1>
+    <p>Здесь вы можете управлять своими бронированиями, просматривать статистику продаж и управлять профилем.</p>
+
+    <section>
+        <h2>Мои бронирования</h2>
+        <p><a href="{% url 'booking_by_partner' %}">Просмотреть мои бронирования</a></p>
+        <p><a href="{% url 'search_rooms_partner' %}" class="btn btn-primary">Новое бронирование</a></p>
+
+
+    <section>
+    <section>
+        <h2>Статистика продаж</h2>
+        <p>Объем продаж: {{ total_sales }}</p>
+        <p>Комиссия ({{ commission_percentage }}%): {{ commission_earned }}</p>
+
+    </section>
+
+    <section>
+        <h2>Управление профилем</h2>
+        <p><a href="{% url 'edit_partner_profile' %}">Редактировать профиль</a></p>
+    </section>
+</div>
+{% endblock %}
+
+

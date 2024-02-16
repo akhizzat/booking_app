@@ -3,7 +3,7 @@ from django.urls import path, include
 from . import views
 from drf_multiple_model.viewsets import ObjectMultipleModelAPIViewSet
 from rest_framework import routers
-
+from django.contrib.auth import views as auth_views
 from .views import router
 
 urlpatterns = [
@@ -15,6 +15,24 @@ urlpatterns = [
     path('payment_success/<int:booking_id>/', views.payment_success, name='payment_success'),
     path('process_payment/<int:booking_id>/', views.process_payment, name='process_payment'),
     path('payment_confirmation/', views.payment_confirmation, name='payment_confirmation'),
+    path('booking_by_partner/', views.booking_by_partner, name='booking_by_partner'),
+    path('edit-profile/', views.edit_partner_profile, name='edit_partner_profile'),
+    path('partner/dashboard/', views.partner_panel, name='partner_dashboard'),
+    path('login_or_register/', views.login_or_register, name='login_or_register'),
+    path('booking_from_search/', views.booking_from_search, name='booking_from_search'),
+    path('search_rooms_partner/', views.search_rooms_partner, name='search_rooms_partner'),
+    path('create_booking/', views.create_booking_and_redirect_to_payment, name='create_booking'),
+    path('restaurant/', views.restaurant, name='restaurant'),
+    path('entertainment/', views.entertainment, name='entertainment'),
+    path('spa/', views.spa, name='spa'),
+    path('stocks/', views.stocks, name='stocks'),
+    path('contact/', views.contact, name='contact'),
+    path('reviews/', views.reviews, name='reviews'),
+
+
+
+
+
 
 
 

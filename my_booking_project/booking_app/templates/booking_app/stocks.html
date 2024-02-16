@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>СПА</title>
+{% endblock %}
+
+{% block head %}
+<script src="{% static 'booking_app/js/validation.js' %}" defer></script>
+<link type="text/css" href="{% static 'booking_app/css/style.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <div class="grid-stocks">
+        <!-- Обертка для текста и изображения акции "Большая семья" -->
+        <div class="stock-item">
+            <section class="stock-text">
+                <h2>Акция "Большая семья"</h2>
+                <p>Многодетным семьям скидка 15%</p>
+                <h3>Условия акции:</h3>
+                <ul>
+                    <li>Скидка применяется только при предъявлении удостоверения многодетной семьи.</li>
+                    <li>Акция не действительна на фиксированные заезды, праздничные дни и дополнительные места.</li>
+                    <li>Скидка не распространяется на группы, а также не суммируется с действующими акциями и спецпредложениями.</li>
+                    <li>Акция распространяется на 2 основных места.</li>
+                </ul>
+            </section>
+            <figure class="stock-image">
+                <img src="{% static 'booking_app/images/stocks_1.jpg' %}" alt="Большая семья">
+            </figure>
+        </div>
+        <div class="stock-item">
+            <section class="stock-text">
+                <h2>Акция "Безлимитный алкоголь"</h2>
+                <p>ВИНО, ВОДКА, ПИВО И ШАМПАНСКОЕ БЕЗ ОГРАНИЧЕНИЙ в течение дня за 1 500 р. с человека.</p>
+                <h3>Условия и сроки действия акции:</h3>
+                <ul>
+                    <li>Сроки действия акции: до 28.03.2024, исключая 22.02.24 — 24.02.24 и 07.03.24 — 09.03.24.</li>
+                    <li>Акции и спецпредложения не суммируются.</li>
+                </ul>
+            </section>
+            <figure class="stock-image">
+                <img src="{% static 'booking_app/images/stocks_2.jpg' %}" alt="Алкоголь">
+            </figure>
+        </div>
+    </div>
+</main>
+
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+</div>
+{% endblock %}
+
+
+

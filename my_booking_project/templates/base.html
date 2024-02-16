@@ -2,26 +2,35 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link type="text/css" href="{% static 'booking_app/css/style.css' %}" rel="stylesheet" />
+    {% block head %}
+    {% endblock %}
+    {% block title %}
     <title>Hotel Homepage</title>
-
+    {% endblock %}
 </head>
 <body>
 
     <nav class="container-fluid">
         <ul>
-            <li><strong>Hotel Homepage</strong></li>
+            <li><img src="{% static 'booking_app/images/logo.png' %}" alt="BookEasy Logo" class="logo"></li>
         </ul>
         <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'rooms' %}">Rooms</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="{% url 'home' %}">Главная</a></li>
+            <li><a href="{% url 'about' %}">Об отеле</a></li>
+            <li><a href="{% url 'rooms' %}">Номера и цены</a></li>
+            <li><a href="{% url 'login_or_register' %}">Партнерам</a></li>
+            <li><a href="{% url 'stocks' %}">Акции</a></li>
+            <li><a href="{% url 'entertainment' %}">Развлечения</a></li>
+            <li><a href="{% url 'restaurant' %}">Рестораны</a></li>
+            <li><a href="{% url 'spa' %}">СПА</a></li>
+            <li><a href="{% url 'reviews' %}">Отзывы</a></li>
+            <li><a href="{% url 'contact' %}">Контакты</a></li>
         </ul>
     </nav>
 
@@ -29,15 +38,17 @@
     <div>
         {% block content %}
         {% endblock %}
-
-
     </div>
 </section>
+<footer>
+    <div class="container footer-container">
+        <img src="{% static 'booking_app/images/logo.png' %}" alt="Logo" class="footer-logo">
+        <div>
+            <p><strong>Адрес</strong>:649109 Республика Алтай, Майминский район, село Урлу-Аспак</p>
+            <p><strong>Телефон</strong>: +7 (999) 139-59-54 (Круглосуточно 24/7)</p>
+        </div>
+    </div>
+</footer>
 
-    <footer class="container">
-        <small>
-            <a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a> • <a href="#">Contact Us</a>
-        </small>
-    </footer>
 </body>
 </html>

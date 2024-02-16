@@ -2,7 +2,9 @@
 
 {% load static %}
 
-{% block title %}Booking Room{% endblock %}
+{% block title %}
+<title>Booking Room</title>
+{% endblock %}
 
 {% block content %}
 {% if error_message %}
@@ -12,13 +14,21 @@
 {% endif %}
 <form id="booking-form" method="post">
     {% csrf_token %}
-    <input type="hidden" name="room_id" value="{{ initial_data.room_id|default:room.id }}">
+    <input type="hidden" name="room_id" value="{{ request.GET.room_id|default:'' }}">
+
+    <!-- Отображение выбранного плана питания как текстового поля только для чтения -->
+    <label for="meal_plan">Тип Питания:</label>
+    <input type="text" id="meal_plan" name="meal_plan" value="{{ request.GET.meal_plan|default:'No meal plan selected' }}" readonly>
+
+    <!-- Остальные поля формы -->
     <input type="text" name="name" placeholder="Имя" required value="{{ initial_data.name|default:'' }}">
     <input type="text" name="surname" placeholder="Фамилия" required value="{{ initial_data.surname|default:'' }}">
-    <input type="number" name="age" placeholder="Возраст" required value="{{ initial_data.age|default:'' }}">
-    <input type="text" name="phone" placeholder="Телефон" required value="{{ initial_data.phone|default:'' }}">
+    <input type="number" name="passport_details" placeholder="Паспортные данные (серия номер)" required value="{{ initial_data.passport_details|default:'' }}">
+    <input type="text" name="phone_number" placeholder="Телефон" required value="{{ initial_data.phone_number|default:'' }}">
+    <input type="email" name="email" placeholder="Email" required value="{{ initial_data.email|default:'' }}">
     <input type="date" id="check_in_date" name="check_in_date" placeholder="Дата въезда" required value="{{ initial_data.check_in_date|default:'' }}">
     <input type="date" id="check_out_date" name="check_out_date" placeholder="Дата выезда" required value="{{ initial_data.check_out_date|default:'' }}">
+
     <button type="submit">Забронировать</button>
 </form>
 {% endblock %}

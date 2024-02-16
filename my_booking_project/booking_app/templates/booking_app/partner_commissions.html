@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Мои вознаграждения</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Период</th>
+            <th>Объём продаж</th>
+            <th>Комиссия (%)</th>
+            <th>Сумма вознаграждения</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for commission in commissions %}
+        <tr>
+            <td>{{ commission.period }}</td>
+            <td>{{ commission.sales_volume }}</td>
+            <td>{{ commission.commission_rate }}</td>
+            <td>{{ commission.amount }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

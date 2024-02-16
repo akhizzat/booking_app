@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Партнерам</h1>
+    <div class="login-register-container">
+        <!-- Вкладка Авторизации -->
+        <div class="login-form">
+            <h2>Вход</h2>
+            <form method="post" action="{% url 'login_or_register' %}">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="login">
+                <input type="email" name="email" placeholder="Email" required> <!-- Изменено на email -->
+                <input type="password" name="password" placeholder="Пароль" required>
+                <button type="submit" name="login">Войти</button> <!-- Добавлено имя кнопки -->
+                {% if login_error %}
+                    <div class="alert alert-danger">{{ login_error }}</div>
+                {% endif %}
+            </form>
+        </div>
+
+        <!-- Вкладка Регистрации -->
+        <div class="register-form">
+            <h2>Регистрация</h2>
+            <form method="post" action="{% url 'login_or_register' %}">{% csrf_token %}
+            <input type="hidden" name="action" value="register">
+
+            <input type="text" name="company_name" placeholder="Название компании" value="{{ registration_form.company_name.value|default_if_none:'' }}" required>
+            <input type="text" name="phone_number" placeholder="Телефон" value="{{ registration_form.phone_number.value|default_if_none:'' }}" required>
+            <input type="email" name="email" placeholder="Email" value="{{ registration_form.email.value|default_if_none:'' }}" required>
+            <input type="text" name="name" placeholder="Имя" value="{{ registration_form.name.value|default_if_none:'' }}" required>
+            <input type="text" name="surname" placeholder="Фамилия" value="{{ registration_form.surname.value|default_if_none:'' }}" required>
+            <input type="text" name="passport_details" placeholder="Паспортные данные" value="{{ registration_form.passport_details.value|default_if_none:'' }}" required>
+            <input type="password" name="password1" placeholder="Пароль" required>
+            <input type="password" name="password2" placeholder="Повторите пароль" required>
+
+            {% for field in registration_form %}
+                {% if field.errors %}
+                    <div class="alert alert-danger">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit" name="register">Зарегистрироваться</button>
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
