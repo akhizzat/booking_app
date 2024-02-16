@@ -82,7 +82,3 @@ class PartnerProfileForm(forms.ModelForm):
         return instance
 
 
-class ReviewForm(forms.ModelForm):
-    class Meta:
-        model = Review
-        fields = ['title', 'text', 'rating']
