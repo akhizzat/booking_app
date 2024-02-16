@@ -1,0 +1,109 @@
+body{
+
+}
+.overlay-form {
+
+    position: absolute;
+
+
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+
+
+}
+.overlay-form form{
+
+    display: flex;
+    justify-content: center;
+
+}
+.form-item {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 10px; /* Расстояние между элементами формы */
+}
+
+/*.form-item label{*/
+
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+#checkin-date, #checkout-date, #room-type, #guests{
+    color: #FFFFFF
+}
+
+div.fullscreen-img {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+}
+.fullscreen-img div{
+
+    display: flex;
+    justify-content: center;
+}
+img.fullscreen-img {
+
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+    filter: brightness(60%);
+}
+
+@media (max-width: 800px) {
+    .overlay-form {
+        flex-direction: column;
+
+    }
+}
+
+.grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+}
+article {
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        padding: 1rem;
+}
+img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+}
+@media (max-width: 800px) {
+    .grid {
+            grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .overlay-form form{
+    width: 100%;
+    display: flex;
+
+    flex-direction: column; /* Измените на row, чтобы сделать расположение горизонтальным */
+        align-items: center;
+
+}
+
+
+}
+
