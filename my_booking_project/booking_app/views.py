@@ -286,10 +286,13 @@ def booking(request, room_id):
     if request.method == 'POST':
         name = request.POST.get('name')
         surname = request.POST.get('surname')
+
         email = request.POST.get('email')
         passport_details = request.POST.get('passport_details')
         phone_number = request.POST.get('phone_number')
         check_in_date = request.POST.get('check_in_date')
+
+
         check_out_date = request.POST.get('check_out_date')
         meal_plan_type = request.POST.get('meal_plan')
 
@@ -558,3 +561,10 @@ router.register('api/booking', BookingAPIView, basename='api_booking')
 router.register('api/room', RoomAPIView, basename='api_room')
 router.register('api/review', ReviewAPIView, basename='api_review')
 router.register('api/payment', PaymentAPIView, basename='api_payment')
+
+
+
+
+
+
+
