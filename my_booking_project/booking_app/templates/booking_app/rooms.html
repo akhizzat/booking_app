@@ -24,16 +24,12 @@
             <article>
                 {% if room.image_url%}
                 <img src="{{ room.image_url.url}}" alt="Фото номера" />
-<<<<<<< HEAD
-                <h2>Номер № {{ room.number }}</h2>
-                <p>Тип номера: {{ room.type }}</p>
-                <p>Цена: {{ room.price }} руб/сутки</p>
-=======
+
                 {% endif %}
                 <h2>{{ room.type }} #{{ room.number }}</h2>
                 <p>Type: {{ room.type }}</p>
                 <p>Price: ${{ room.price }} per night</p>
->>>>>>> c2682ba55785750852fa9f146c58fb0ba04d7e35
+
             </article>
             {% endfor %}
         </div>
