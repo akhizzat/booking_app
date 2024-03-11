@@ -227,7 +227,7 @@ img {
 
 .modal-content {
     display: flex;
-    width: auto; /* Убедитесь, что изображение не слишком большое */
+    width: auto;
     max-width: 80%; /* Начальный размер изображения */
     max-height: 80vh; /* Ограничиваем высоту */
     margin: auto;
@@ -243,8 +243,7 @@ img {
     font-size: 40px;
     font-weight: bold;
     transition: 0.3s;
-    z-index: 2; /* Убедитесь, что крестик всегда поверх изображения */
-}
+    z-index: 2;
 
 
 .close:hover,
