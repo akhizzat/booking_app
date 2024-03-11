@@ -114,7 +114,6 @@ def rooms(request):
 
 
 # Поиск доступных номеров для неавторизованных пользователей с учетом введенных пользователем критериев поиска
-
 def search_rooms(request):
     checkin_date = request.GET.get('checkin-date')
     checkout_date = request.GET.get('checkout-date')
@@ -192,7 +191,6 @@ def search_rooms(request):
 
 
 # Бронирование номера для неавторизованного пользователя
-
 def booking(request, room_id):
     room = get_object_or_404(Room, pk=room_id)
     error_message = None
@@ -356,14 +354,11 @@ def edit_partner_profile(request):
 
 
 # Форма поиска номеров для Партнеров
-
 def search_rooms_partner(request):
     return render(request, 'booking_app/search_rooms_partner.html')
 
 
 # Результат поиска доступных номеров для Партнеров
-
-
 def booking_from_search(request):
     # Получаем и сохраняем даты в сессии
     request.session['checkin_date'] = request.GET.get('checkin_date')
