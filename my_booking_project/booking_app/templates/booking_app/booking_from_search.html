@@ -26,7 +26,7 @@
             <p>Тип номера: {{ room_info.room.category }}</p>
             <!-- Вывод цен за разные тарифы питания как ссылок -->
             {% for meal_type, price in room_info.meals.items %}
-                <a href="{% url 'create_booking' %}?room_id={{ room_info.room.id }}&check_in_date={{ request.session.checkin_date }}&check_out_date={{ request.session.checkout_date }}&meal_plan={{ meal_type }}&price={{ price }}">Цена с питанием: {{ meal_type }} at {{ price }} руб/сутки</a>
+                <a href="{% url 'create_booking_and_redirect_to_payment' %}?room_id={{ room_info.room.id }}&check_in_date={{ request.session.checkin_date }}&check_out_date={{ request.session.checkout_date }}&meal_plan={{ meal_type }}&price={{ price }}&adults={{ request.session.adults }}&children={{ request.session.children }}">Цена с питанием: {{ meal_type }} at {{ price }} руб/сутки</a>
             {% endfor %}
         </div>
     {% empty %}

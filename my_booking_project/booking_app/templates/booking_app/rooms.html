@@ -3,35 +3,38 @@
 {% load static %}
 
 {% block title %}
-<title xmlns="http://www.w3.org/1999/html">Номера</title>
+<title>Номера</title>
 {% endblock %}
 {% block content %}
-    <main class="container">
-        <div class="back-link-container">
-            <p><a href="{% url 'home' %}">Назад</a></p>
-        </div>
-        <h1>Наши номера</h1>
-        <div>
-            <h3>Питание</h3>
-            <ul>При бронировании номера можно выбрать один из данных типов питания:</ul>
+<main class="container">
+    <div class="back-link-container">
+        <p><a href="{% url 'home' %}">Назад</a></p>
+    </div>
+    <h1>Наши номера</h1>
+    <div>
+        <h3>Питание</h3>
+        <p>При бронировании номера можно выбрать один из данных типов питания:</p>
+        <ul>
             {% for meal in meal_plan %}
-                <li>{{ meal.type }}: {{ meal.price }} руб</li>
+            <li>{{ meal.type }}: {{ meal.price }} руб</li>
             {% endfor %}
-        </div>
-        <div class="grid">
-            {% for room in rooms %}
+        </ul>
+    </div>
 
-            <article>
-                {% if room.image_url%}
-                <img src="{{ room.image_url.url}}" alt="Фото номера" />
+    <div class="grid">
+        {% for room in rooms %}
 
-                {% endif %}
-                <h2>{{ room.type }} #{{ room.number }}</h2>
-                <p>Type: {{ room.type }}</p>
-                <p>Price: ${{ room.price }} per night</p>
+        <article>
+            {% if room.image_url%}
+            <img src="{{ room.image_url.url}}" alt="Фото номера"/>
 
-            </article>
-            {% endfor %}
-        </div>
-    </main>
+            {% endif %}
+            <h3>Тип номера: {{ room.type }} </h3>
+            <p>Описание: {{ room.description }}</p>
+            <p>Цена: {{ room.price }} руб/сутки</p>
+
+        </article>
+        {% endfor %}
+    </div>
+</main>
 {% endblock %}

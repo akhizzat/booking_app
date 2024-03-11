@@ -27,7 +27,7 @@ DEBUG = True
 # ALLOWED_HOSTS = []
 
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.30', 'localhost'] #Вот это ip адрес моего пк, чтоб я мог с
-# телефона смотреть как смотриться
+# телефона смотреть как смотрится
 
 
 # Application definition
@@ -160,6 +160,8 @@ MEDIA_URL = '/media/'
 # Физический путь к директории, где будут храниться медиа-файлы
 MEDIA_ROOT = BASE_DIR / 'media'
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -169,7 +171,7 @@ LOGGING = {
         },
         'file': {
             'class': 'logging.FileHandler',
-            'filename': './log/django.log',
+            'filename': os.path.join(BASE_DIR, 'log', 'django.log'),
             'encoding': 'utf-8'
         },
     },

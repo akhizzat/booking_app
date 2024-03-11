@@ -1,13 +1,26 @@
 {% extends "base.html" %}
 
-{% block title %}Редактирование профиля партнёра{% endblock %}
+{% block title %}
+<title>Редактирование профиля партнёра</title>
+{% endblock %}
 
 {% block content %}
 <div class="container">
     <h1>Редактирование профиля</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
         <button type="submit" class="btn btn-primary">Сохранить изменения</button>
     </form>
 </div>

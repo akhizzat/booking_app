@@ -1,5 +1,6 @@
 from django.contrib.auth.models import BaseUserManager
 
+
 class CustomUserManager(BaseUserManager):
     """Менеджер пользовательских моделей, где email является уникальным идентификатором
     для аутентификации вместо имён пользователей."""
