@@ -1,47 +1,40 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
-{% block head %}
-<script src="{% static 'booking_app/js/validation.js' %}" defer></script>
+{% block title %}
+<title>Search Rooms</title>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>Поиск доступных номеров</h2>
-    <p><a href="{% url 'partner_dashboard' %}">Назад</a></p>
-    {% if error_message %}
-    <div id="server-error-message" class="alert alert-danger" role="alert">
-        {{ error_message }}
+{% if discount_message %}
+<div class="discount-message">
+    <p>{{ discount_message }}</p>
+</div>
+{% endif %}
+<!-- Список доступных номеров с ценами за разные тарифы питания -->
+<div class="rooms-container">
+    {% if rooms_with_meals %}
+    <div class="back-link-container">
+        <p><a href="{% url 'home' %}">Назад</a></p>
     </div>
     {% endif %}
-    <form action="{% url 'booking_from_search' %}" method="get" onclick="clearErrorMessage()">
-        <div class="form-group">
-            <label for="checkin-date">Дата заезда:</label>
-            <input type="date" id="checkin-date" name="checkin_date"  required onchange="validateDates()">
-        </div>
-        <div class="form-group">
-            <label for="checkout-date">Дата выезда:</label>
-            <input type="date" id="checkout-date" name="checkout_date" required onchange="validateDates()">
-        </div>
-        <div class="form-group">
-            <label for="adults">Взрослые:</label>
-            <input type="number" id="adults" name="adults" onchange="validateGuests()" min="1" value="1" required>
-        </div>
-        <div class="form-group">
-            <label for="children">Дети:</label>
-            <input type="number" id="children" name="children" onchange="validateGuests()" min="0" value="0" required>
-        </div>
-        <div class="form-group">
-            <label for="room-type">Тип комнаты:</label>
-            <select id="room-type" name="room_type">
-                <option value="single">Одноместный</option>
-                <option value="double">Двухместный</option>
-                <option value="family">Семейный</option>
-                <option value="luxury">Люкс</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Найти номера</button>
-    </form>
-
+    {% for room_info in rooms_with_meals %}
+    <div class="room">
+        <h2>Номер комнаты: {{ room_info.room.number }}</h2>
+        <img src="{{ room_info.room.image.url }}" alt="Room image">
+        <p>Тип номера: {{ room_info.room.category }}</p>
+        <!-- Вывод цен за разные тарифы питания как ссылок -->
+        {% for meal_type, price in room_info.meals.items %}
+        <p><a href="{% url 'booking' room_info.room.id %}?meal_plan={{ meal_type }}">Цена с питанием: {{ meal_type }}:
+            {{ price }} руб/сутки</a></p>
+        {% endfor %}
+    </div>
+    {% empty %}
+    <div class="no-rooms">
+        <br>
+        <h4>Свободных номеров на эти даты нет. <a href="{% url 'home' %}">Вернуться на страницу поиска.</a></h4>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

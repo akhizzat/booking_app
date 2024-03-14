@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import User, AbstractUser
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -8,7 +9,6 @@ from booking_app.managers import CustomUserManager
 
 
 class User(AbstractUser):
-
     email = models.EmailField('email address', unique=True)
 
     # Ваши дополнительные поля
@@ -16,7 +16,7 @@ class User(AbstractUser):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     is_guest = models.BooleanField(default=False, help_text='Designates whether this user is a guest or a partner.')
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'email'  # Указывает, что поле email используется в качестве основного идентификатора пользователя вместо стандартного username
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
@@ -27,6 +27,7 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
     # Добавляем аргумент related_name для каждого поля
     groups = models.ManyToManyField(
         'auth.Group',
@@ -61,7 +62,7 @@ class Partner(models.Model):
         return self.company_name
 
 
-# Модель комиссии для партнёров
+# Модель комиссии для Партнёров
 class Commission(models.Model):
     partner = models.ForeignKey(Partner, on_delete=models.CASCADE, related_name='commissions')
     sales_volume = models.DecimalField(max_digits=10, decimal_places=2)
@@ -71,7 +72,7 @@ class Commission(models.Model):
         return f"{self.sales_volume} - {self.commission_percentage}%"
 
 
-# Остальные модели остаются без изменений
+# Модель типов питания
 class MealPlan(models.Model):
     TYPE_CHOICES = [
         ('breakfast', 'Завтрак'),
@@ -96,6 +97,7 @@ class Room(models.Model):
 
     number = models.CharField(max_length=5, unique=True)  # Уникальный номер комнаты
     category = models.CharField(max_length=7, choices=ROOM_CATEGORIES)  # Категория комнаты
+    description = models.TextField(null=True)
     guests = models.IntegerField()  # Максимальное количество гостей
     price = models.DecimalField(max_digits=8, decimal_places=2)  # Цена за ночь в номере
     image = models.ImageField(
@@ -104,12 +106,11 @@ class Room(models.Model):
         null=True,  # Разрешаем значение NULL в базе данных
         blank=True  # Разрешаем поле быть пустым в формах
     )
-    #meal_plan = models.ForeignKey(MealPlan, on_delete=models.SET_NULL, null=True, blank=True)  # Ссылка на вид питания
 
     def __str__(self):
         return f'Номер комнаты {self.number}'
 
-    # метод предназначен для вычисления общей стоимости номера в отеле, включая стоимость выбранного
+    # Метод предназначен для вычисления общей стоимости номера в отеле, включая стоимость выбранного
     # тарифа питания за один день
     def calculate_total_price(self, meal_plan_type=None):
         total_price = self.price
@@ -121,12 +122,13 @@ class Room(models.Model):
 
 class Review(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)  # Покупатель
+    title = models.CharField(max_length=100, null=True)  # Новое поле для заголовка отзыва
     review = models.TextField()  # Отзыв покупателя
-    rating = models.IntegerField()  # Рейтинг отеля
+    rating = models.IntegerField(validators=[MaxValueValidator(5)])  # Рейтинг отеля
     review_date = models.DateField(auto_now_add=True)  # Дата написания отзыва
 
     def __str__(self):
-        return f'Id номер покупателя {self.customer}'
+        return f'{self.title} - Id номер покупателя {self.customer}'
 
 
 class Booking(models.Model):
@@ -140,13 +142,6 @@ class Booking(models.Model):
 
     def __str__(self):
         return f'Бронирование {self.id} для {self.user}'
-
-    def save(self, *args, **kwargs):
-        if not self.total_cost:
-            days = (self.check_out_date - self.check_in_date).days
-            room_total = self.room_number.calculate_total_price(self.meal_plan.type) * days
-            self.total_cost = room_total
-        super().save(*args, **kwargs)
 
 
 class Payment(models.Model):

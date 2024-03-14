@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block title %}<title>Оплата успешно проведена</title>{% endblock %}
-
 {% block content %}
 {% if request.session.booking_info %}
-    <h2>Оплата бронирования успешно проведена</h2>
+<h2>Оплата бронирования успешно проведена</h2>
+{% if discount_message %}
+<p><strong>Внимание!</strong> {{ discount_message }}</p>
+{% endif %}
     <p>Бронирование номера: {{ request.session.booking_info.room_number }}</p>
     <p>Дата заезда: {{ request.session.booking_info.check_in_date }}</p>
     <p>Дата выезда: {{ request.session.booking_info.check_out_date }}</p>
@@ -13,6 +15,6 @@
     <p>К оплате: {{ request.session.booking_info.total_cost }} руб.</p>
     <a href="{% url 'home' %}">Вернуться на главную страницу</a>
 {% else %}
-    <p>Информация о бронировании не найдена. Пожалуйста, начните процесс бронирования заново.</p>
+<p>Информация о бронировании не найдена. Пожалуйста, начните процесс бронирования заново.</p>
 {% endif %}
 {% endblock %}

@@ -19,25 +19,38 @@ function validateGuests(input) {
             }
         }
 
+
 function validateDates() {
     var checkInDate = document.getElementById('checkin-date').value;
     var checkOutDate = document.getElementById('checkout-date').value;
     var errorMessage = document.getElementById('dates-error-message');
 
-    if (checkInDate && checkOutDate && new Date(checkInDate) >= new Date(checkOutDate)) {
-        errorMessage.textContent = 'Дата выезда должна быть позже даты заезда.';
+    // Создание объекта даты для текущей даты и обнуление времени
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Создание объектов даты для введенных дат и обнуление времени
+    var parsedCheckInDate = new Date(checkInDate);
+    parsedCheckInDate.setHours(0, 0, 0, 0);
+    var parsedCheckOutDate = new Date(checkOutDate);
+    parsedCheckOutDate.setHours(0, 0, 0, 0);
+
+    // Проверка условий: даты не должны быть раньше сегодняшней и дата заезда не должна быть позже даты выезда
+    if ((checkInDate && checkOutDate && parsedCheckInDate >= parsedCheckOutDate) || parsedCheckInDate < today || parsedCheckOutDate < today) {
+        errorMessage.textContent = 'Проверьте даты. Некорректные даты.';
         errorMessage.style.display = 'block';
     } else {
         errorMessage.style.display = 'none';
     }
 }
 
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const errorMessageDiv = document.getElementById('error-message');
       if (errorMessageDiv && errorMessageDiv.textContent !== '') {
         setTimeout(() => {
           errorMessageDiv.style.display = 'none';
-        }, 1500); //1500 миллисекунд = 1.5 секунд
+        }, 3000); //1500 миллисекунд = 1.5 секунд
       }
 });
 

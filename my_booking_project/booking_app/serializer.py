@@ -1,5 +1,11 @@
 from rest_framework import serializers
-from .models import Room, Review, Booking, Payment
+from .models import Room, Review, Booking, Payment, MealPlan
+
+
+class MealSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MealPlan
+        fields = '__all__'
 
 
 class RoomSerializer(serializers.ModelSerializer):

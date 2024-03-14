@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<script src="{% static 'booking_app/js/validation.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Поиск доступных номеров</h2>
+    <p><a href="{% url 'partner_dashboard' %}">Назад</a></p>
+    {% if error_message %}
+    <div id="server-error-message" class="alert alert-danger" role="alert">
+        {{ error_message }}
+    </div>
+    {% endif %}
+    <form action="{% url 'booking_from_search' %}" method="get" onclick="clearErrorMessage()">
+        <div class="form-group">
+            <label for="checkin-date">Дата заезда:</label>
+            <input type="date" id="checkin-date" name="checkin_date"  required onchange="validateDates()">
+        </div>
+        <div class="form-group">
+            <label for="checkout-date">Дата выезда:</label>
+            <input type="date" id="checkout-date" name="checkout_date" required onchange="validateDates()">
+        </div>
+        <div class="form-group">
+            <label for="adults">Взрослые:</label>
+            <input type="number" id="adults" name="adults" onchange="validateGuests()" min="1" value="1" required>
+        </div>
+        <div class="form-group">
+            <label for="children">Дети:</label>
+            <input type="number" id="children" name="children" onchange="validateGuests()" min="0" value="0" required>
+        </div>
+        <div class="form-group">
+            <label for="room-type">Тип комнаты:</label>
+            <select id="room-type" name="room_type">
+                <option value="single">Одноместный</option>
+                <option value="double">Двухместный</option>
+                <option value="family">Семейный</option>
+                <option value="luxury">Люкс</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Найти номера</button>
+    </form>
+
+</div>
+{% endblock %}

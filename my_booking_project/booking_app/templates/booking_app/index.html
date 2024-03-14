@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>Главная</title>
+<title>Главная</title>
 {% endblock %}
 
 {% block head %}
@@ -12,61 +12,63 @@
 {% block content %}
 <div>
     <div class="fullscreen-img">
-        <img src="{% static 'booking_app/images/home.jpg' %}" alt="Hotel Image" class="fullscreen-img" />
+        <img src="{% static 'booking_app/images/home.jpg' %}" alt="Hotel Image" class="fullscreen-img"/>
         <div>
             <div class="overlay-form">
                 {% if error_message %}
-                    <div id="error-message" class="error-tooltip">
-                        {{ error_message }}
-                    </div>
+                <div id="error-message" class="error-tooltip">
+                    {{ error_message }}
+                </div>
                 {% endif %}
-            <form action="{% url 'search_rooms' %}" method="get" onclick="clearErrorMessage()">
-            <div class="form-item">
-                <label for="checkin-date">Дата заезда:</label>
-                <input type="date" id="checkin-date" name="checkin-date" required onchange="validateDates()">
+                <form action="{% url 'search_rooms' %}" method="get" onclick="clearErrorMessage()">
+                    <div class="form-item">
+                        <label for="checkin-date">Дата заезда:</label>
+                        <input type="date" id="checkin-date" name="checkin-date" required onchange="validateDates()">
+                    </div>
+                    <div class="form-item" style="position: relative;">
+                        <label for="checkout-date">Дата выезда:</label>
+                        <input type="date" id="checkout-date" name="checkout-date" required onchange="validateDates()">
+                        <p id="dates-error-message" class="error-message" style="display: none;"></p>
+                    </div>
+                    <div class="form-item">
+                        <label for="room-type">Тип номера:</label>
+                        <select id="room-type" name="room-type">
+                            <option value="single">Одноместный</option>
+                            <option value="double">Двухместный</option>
+                            <option value="family">Семейный</option>
+                            <option value="luxury">Люкс</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="adults">Взрослые:</label>
+                        <input type="number" id="adults" name="adults" min="1" max="10" required
+                               oninput="validateGuests(this)" value="1">
+                    </div>
+                    <div class="form-item">
+                        <label for="children">Дети:</label>
+                        <input type="number" id="children" name="children" min="0" max="10" required
+                               oninput="validateGuests(this)" value="0">
+                    </div>
+                    <p id="guests-error-message" class="error-message" style="display: none;"></p>
+                    <div class="form-item">
+                        <label for="food-type">Тип питания:</label>
+                        <select id="food-type" name="food-type">
+                            <option value="breakfast">Завтрак</option>
+                            <option value="half-board">Полупансион</option>
+                            <option value="full-board">Полный пансион</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <br>
+                        <button type="submit" class="button-primary">Поиск</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-item" style="position: relative;">
-                <label for="checkout-date">Дата выезда:</label>
-                <input type="date" id="checkout-date" name="checkout-date" required onchange="validateDates()">
-                <p id="dates-error-message" class="error-message" style="display: none;"></p>
-            </div>
-            <div class="form-item">
-                <label for="room-type">Тип номера:</label>
-                <select id="room-type" name="room-type">
-                    <option value="single">Одноместный</option>
-                    <option value="double">Двухместный</option>
-                    <option value="family">Семейный</option>
-                    <option value="luxury">Люкс</option>
-                </select>
-            </div>
-            <div class="form-item">
-                <label for="adults">Взрослые:</label>
-                <input type="number" id="adults" name="adults" min="1" max="10" required oninput="validateGuests(this)" value="1">
-            </div>
-            <div class="form-item">
-                <label for="children">Дети:</label>
-                <input type="number" id="children" name="children" min="0" max="10" required oninput="validateGuests(this)" value="0">
-            </div>
-            <p id="guests-error-message" class="error-message" style="display: none;"></p>
-            <div class="form-item">
-                <label for="food-type">Тип питания:</label>
-                <select id="food-type" name="food-type">
-                    <option value="breakfast">Завтрак</option>
-                    <option value="half-board">Полупансион</option>
-                    <option value="full-board">Полный пансион</option>
-                </select>
-            </div>
-            <div class="form-item">
-                <br>
-                <button type="submit" class="button-primary">Поиск</button>
-            </div>
-            </form>
-        </div>
         </div>
     </div>
 </div>
 {% endblock %}
 
 {% block footer %}
-    <!-- Футер, если он нужен -->
+
 {% endblock %}
