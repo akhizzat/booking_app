@@ -1,5 +1,7 @@
 body{
      background-color: #e6f6fa; /* Пастельно-голубой цвет фона */
+     width: 100%;
+
 
 }
 .overlay-form {
@@ -68,6 +70,9 @@ img.fullscreen-img {
         flex-direction: column;
 
     }
+    .grid {
+            grid-template-columns: 1fr;
+    }
 }
 
 .grid {
@@ -89,11 +94,7 @@ img {
         border-radius: 0.5rem;
         object-fit: cover;
 }
-@media (max-width: 800px) {
-    .grid {
-            grid-template-columns: 1fr;
-    }
-}
+
 
 @media (max-width: 900px) {
     .overlay-form form{
@@ -104,6 +105,92 @@ img {
         align-items: center;
 
     }
+
+
+    nav .menu{
+        display: flex;
+        justify-content: center;
+    }
+    nav{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    footer .footer-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .address{
+        margin-top: 40px;
+    }
+
+    nav .menu ul {
+    flex-wrap: wrap;
+    }
+
+    nav .menu ul > li {
+    flex-basis: 20%;
+    }
+}
+
+@media (max-width: 725px) {
+    nav .menu ul {
+    flex-wrap: wrap;
+    }
+
+    nav .menu ul > li {
+    flex-basis: 25%;
+    }
+}
+
+@media (max-width: 600px) {
+    nav .menu ul {
+    flex-wrap: wrap;
+    }
+
+    nav .menu ul > li {
+    flex-basis: 30%;
+    }
+}
+
+@media (max-width: 400px) {
+    nav .menu ul {
+    flex-wrap: wrap;
+    }
+
+    nav .menu ul > li {
+    flex-basis: 50%;
+    }
+}
+
+@media (max-width: 250px) {
+    nav .menu ul {
+    flex-wrap: wrap;
+    }
+
+    nav .menu ul > li {
+    flex-basis: 100%;
+    }
+}
+
+nav{
+    width: 100%;
+    display: flex;
+}
+.nav{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.menu{
+    margin-left: 40px;
+    margin-right: 40px;
+    display: flex;
+    justify-content: center;
 }
 
 .rooms-container {
@@ -139,7 +226,7 @@ img {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 100;
     white-space: nowrap; /* Предотвращает перенос текста на новую строку */
-    max-width: calc(100% -webkit-fill-available); /* Максимальная ширина, минус паддинги */
+
     box-sizing: border-box; /* Учитываем паддинги и границы в ширине */
 
 }
@@ -149,7 +236,7 @@ img {
 
     display: inline-block; /* Делаем сообщения инлайн-блочными для выравнивания */
     margin: 0 10px; /* Добавляем немного пространства между сообщениями */
-    background: background: rgba(255, 255, 255, 0.9); /* Чтобы сообщения выделялись на фоне страницы */
+    background: rgba(255, 255, 255, 0.9); /* Чтобы сообщения выделялись на фоне страницы */
     padding: 5px;
     border-radius: 5px;
     top: 71%;
@@ -266,6 +353,7 @@ img {
 
 /* Стили для контейнера футера, чтобы выровнять логотип и текст слева */
 .logo {
+    margin-left: 20px;
     width: 100px; /* Установите ширину, соответствующую вашему дизайну */
     height: auto; /* Автоматический для поддержания пропорций */
     margin-right: 10px; /* Отступ справа */
@@ -291,20 +379,14 @@ footer {
 
 .footer-container {
     display: flex;
-    align-items: center;
+
     justify-content: flex-start; /* Выравнивание элементов контейнера по левому краю */
+
     text-align: left;
-    padding-left: 100px; /* Отступ слева, чтобы логотип не прилипал к краю экрана */
+    padding-left: 20px; /* Отступ слева, чтобы логотип не прилипал к краю экрана */
 }
 
 
-.footer-logo {
-    width: 100px; /* Установите ширину, соответствующую вашему дизайну */
-    height: auto; /* Автоматический для поддержания пропорций */
-    margin-right: 100px; /* Отступ справа */
-    transform: scale(1.35); /* Увеличение на 15% */
-    transform-origin: left; /* Начало масштабирования с левой стороны */
-}
 
 
 /* Стили для раздела SPA */

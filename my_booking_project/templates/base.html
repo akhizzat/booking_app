@@ -16,22 +16,30 @@
 </head>
 <body>
 
-    <nav class="container-fluid">
-        <ul>
-            <li><img src="{% static 'booking_app/images/logo.png' %}" alt="BookEasy Logo" class="logo"></li>
-        </ul>
-        <ul>
-            <li><a href="{% url 'home' %}">Главная</a></li>
-            <li><a href="{% url 'about' %}">Об отеле</a></li>
-            <li><a href="{% url 'rooms' %}">Номера и цены</a></li>
-            <li><a href="{% url 'login_or_register' %}">Партнерам</a></li>
-            <li><a href="{% url 'stocks' %}">Акции</a></li>
-            <li><a href="{% url 'entertainment' %}">Развлечения</a></li>
-            <li><a href="{% url 'restaurant' %}">Рестораны</a></li>
-            <li><a href="{% url 'spa' %}">СПА</a></li>
-            <li><a href="{% url 'reviews' %}">Отзывы</a></li>
-            <li><a href="{% url 'contact' %}">Контакты</a></li>
-        </ul>
+    <nav>
+
+            <div class="class_logo">
+               <ul>
+                    <li><img src="{% static 'booking_app/images/logo.png' %}" alt="BookEasy Logo" class="logo"></li>
+                </ul>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="{% url 'home' %}">Главная</a></li>
+                    <li><a href="{% url 'about' %}">Об отеле</a></li>
+                    <li><a href="{% url 'rooms' %}">Номера и цены</a></li>
+                    <li><a href="{% url 'login_or_register' %}">Партнерам</a></li>
+                    <li><a href="{% url 'stocks' %}">Акции</a></li>
+                    <li><a href="{% url 'entertainment' %}">Развлечения</a></li>
+                    <li><a href="{% url 'restaurant' %}">Рестораны</a></li>
+                    <li><a href="{% url 'spa' %}">СПА</a></li>
+                    <li><a href="{% url 'reviews' %}">Отзывы</a></li>
+                    <li><a href="{% url 'contact' %}">Контакты</a></li>
+                </ul>
+
+        </div>
+
+
     </nav>
 
 <section>
@@ -42,8 +50,7 @@
 </section>
 <footer>
     <div class="container footer-container">
-        <img src="{% static 'booking_app/images/logo.png' %}" alt="Logo" class="footer-logo">
-        <div>
+        <div class="address">
             <p><strong>Адрес</strong>:649109 Республика Алтай, Майминский район, село Урлу-Аспак</p>
             <p><strong>Телефон</strong>: +7 (999) 139-59-54 (Круглосуточно 24/7)</p>
         </div>
