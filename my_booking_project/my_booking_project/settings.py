@@ -139,10 +139,13 @@ LOGIN_URL = 'login'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-
+BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_URL = 'static/'
+# Если вы используете Windows, попробуйте изменить STATIC_ROOT на строку:
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATIC_ROOT = 'E:/Py/Диплом/booking_app/my_booking_project/static/'
+#STATIC_ROOT = 'E:/Py/Диплом/booking_app/my_booking_project/static/'
 
 # settings.py
 
@@ -160,7 +163,7 @@ MEDIA_URL = '/media/'
 # Физический путь к директории, где будут храниться медиа-файлы
 MEDIA_ROOT = BASE_DIR / 'media'
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 LOGGING = {
     'version': 1,
