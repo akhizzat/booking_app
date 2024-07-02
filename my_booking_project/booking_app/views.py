@@ -94,7 +94,7 @@ def reviews(request):
 
 def rooms(request):
     # Получаем все комнаты из базы данных
-    rooms_db = Room.objects.all()
+    rooms_db = Room.objects.all().order_by('number')
 
     rooms = [
         {
@@ -159,9 +159,9 @@ def search_rooms(request):
     ).filter(
         category=room_type if room_type else None,
         guests__gte=total_guests
-    )
+    ).order_by('number')
 
-    meal_plans = MealPlan.objects.all()
+    meal_plans = MealPlan.objects.all().order_by('price')
     rooms_with_meals = []
 
     for room in available_rooms:
@@ -414,10 +414,10 @@ def booking_from_search(request):
     ).filter(
         category=room_type if room_type else None,
         guests__gte=total_guests
-    )
+    ).order_by('number')
 
     # Собираем информацию о доступных номерах и планах питания
-    meal_plans = MealPlan.objects.all()
+    meal_plans = MealPlan.objects.all().order_by('price')
     rooms_with_meals = []
 
     for room in available_rooms:

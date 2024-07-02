@@ -14,6 +14,7 @@ class User(AbstractUser):
     # Ваши дополнительные поля
     passport_details = models.CharField(max_length=11, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
+
     is_guest = models.BooleanField(default=False, help_text='Designates whether this user is a guest or a partner.')
 
     USERNAME_FIELD = 'email'  # Указывает, что поле email используется в качестве основного идентификатора пользователя вместо стандартного username
