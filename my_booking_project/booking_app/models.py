@@ -22,6 +22,7 @@ class User(AbstractUser):
 
     objects = CustomUserManager()
 
+
     def save(self, *args, **kwargs):
         self.username = self.email  # Копируем значение email в username перед сохранением
         super().save(*args, **kwargs)
@@ -59,6 +60,12 @@ class Partner(models.Model):
     company_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=20)
 
+
+    class Meta:
+        db_table = "booking_app_partner"
+        verbose_name = "Партнер"
+        verbose_name_plural = "Партнеры"
+
     def __str__(self):
         return self.company_name
 
@@ -69,22 +76,30 @@ class Commission(models.Model):
     sales_volume = models.DecimalField(max_digits=10, decimal_places=2)
     commission_percentage = models.DecimalField(max_digits=5, decimal_places=2)
 
+
+    class Meta:
+        db_table = "booking_app_commission"
+        verbose_name = "Коммиссию"
+        verbose_name_plural = "Коммиссии"
+
+
     def __str__(self):
         return f"{self.sales_volume} - {self.commission_percentage}%"
 
 
 # Модель типов питания
 class MealPlan(models.Model):
-    TYPE_CHOICES = [
-        ('breakfast', 'Завтрак'),
-        ('half_board', 'Полупансион'),
-        ('full_board', 'Полный пансион'),
-    ]
-    type = models.CharField(max_length=20, choices=TYPE_CHOICES, unique=True)
+
+    type = models.CharField(max_length=20, unique=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
 
+    class Meta:
+        db_table = "booking_app_mealplan"
+        verbose_name = "План питания"
+        verbose_name_plural = "Планы питания"
+
     def __str__(self):
-        return self.get_type_display()
+        return self.type
 
 
 class Room(models.Model):
@@ -108,6 +123,12 @@ class Room(models.Model):
         blank=True  # Разрешаем поле быть пустым в формах
     )
 
+    class Meta:
+        db_table = "booking_app_room"
+        verbose_name = "Номер"
+        verbose_name_plural = "Номера"
+
+
     def __str__(self):
         return f'Номер комнаты {self.number}'
 
@@ -128,6 +149,11 @@ class Review(models.Model):
     rating = models.IntegerField(validators=[MaxValueValidator(5)])  # Рейтинг отеля
     review_date = models.DateField(auto_now_add=True)  # Дата написания отзыва
 
+    class Meta:
+        db_table = "booking_app_review"
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзывы"
+
     def __str__(self):
         return f'{self.title} - Id номер покупателя {self.customer}'
 
@@ -141,6 +167,11 @@ class Booking(models.Model):
     is_paid = models.BooleanField(default=False)
     meal_plan = models.ForeignKey(MealPlan, on_delete=models.SET_NULL, null=True, blank=True)
 
+    class Meta:
+        db_table = "booking_app_booking"
+        verbose_name = "Бронирование"
+        verbose_name_plural = "Бронирования"
+    
     def __str__(self):
         return f'Бронирование {self.id} для {self.user}'
 
@@ -150,6 +181,12 @@ class Payment(models.Model):
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     date = models.DateField(auto_now_add=True)
     pay_method = models.CharField(max_length=50)
+
+
+    class Meta:
+        db_table = "booking_app_payment"
+        verbose_name = "Оплату"
+        verbose_name_plural = "Оплаты"
 
     def __str__(self):
         return f'Оплата {self.id} для бронирования {self.booking.id}'
