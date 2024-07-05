@@ -21,6 +21,7 @@
 ## Стек используемых технологий
 
 Python, Django Framework, Postgresql, HTML/CSS
+
 Ubuntu, Gunicorn, Nginx (для развертывания на сервере)
  
 ## Запуск приложения
