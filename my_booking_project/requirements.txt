@@ -11,6 +11,7 @@ drf-multiple-serializer==0.2.3
 drf-multiple-settings==1.0.1
 drf-spectacular==0.28.0
 ffmpeg==1.4
+gunicorn==21.2.0
 inflection==0.5.1
 iniconfig==2.0.0
 jsonschema==4.23.0
