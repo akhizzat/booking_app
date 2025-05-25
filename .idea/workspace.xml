@@ -45,24 +45,24 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/LENOVO/Desktop/GeekBrains/ДИПЛОМ_файлы/Diplom_example&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Дио/Diplom_example&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\booking_app\static\booking_app\css" />
-      <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\booking_app\static\booking_app\images" />
-      <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\tests" />
-      <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\booking_app\tests" />
-      <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\booking_app" />
+      <recent name="C:\Users\Дио\Diplom_example\my_booking_project\booking_app\static\booking_app\css" />
+      <recent name="C:\Users\Дио\Diplom_example\my_booking_project\booking_app\static\booking_app\images" />
+      <recent name="C:\Users\Дио\Diplom_example\my_booking_project\tests" />
+      <recent name="C:\Users\Дио\Diplom_example\my_booking_project\booking_app\tests" />
+      <recent name="C:\Users\Дио\Diplom_example\my_booking_project\booking_app" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project" />
-      <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\booking_app" />
-      <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\tests" />
-      <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\media\room_images" />
-      <recent name="C:\Users\LENOVO\Desktop\GeekBrains\ДИПЛОМ_файлы\Diplom_example\my_booking_project\booking_app\static\booking_app\images" />
+      <recent name="C:\Users\Дио\Diplom_example\my_booking_project" />
+      <recent name="C:\Users\Дио\Diplom_example\my_booking_project\booking_app" />
+      <recent name="C:\Users\Дио\Diplom_example\my_booking_project\tests" />
+      <recent name="C:\Users\Дио\Diplom_example\my_booking_project\media\room_images" />
+      <recent name="C:\Users\Дио\Diplom_example\my_booking_project\booking_app\static\booking_app\images" />
     </key>
   </component>
   <component name="RunManager" selected="Python tests.pytest for test_views.test_form_has_csrf_token_login">
@@ -196,7 +196,7 @@
       <option name="project" value="LOCAL" />
       <updated>1706909393915</updated>
     </task>
-    <task id="LOCAL-00004" summary="Добавила страницы бронирования, оплаты и сделала связь с базой данных, сделала некоторые проверки дат и количества гостей">
+    <task id="LOCAL-00004" summary="Добавил страницы бронирования, оплаты и сделала связь с базой данных, сделала некоторые проверки дат и количества гостей">
       <option name="closed" value="true" />
       <created>1707304847546</created>
       <option name="number" value="00004" />
@@ -204,7 +204,7 @@
       <option name="project" value="LOCAL" />
       <updated>1707304847546</updated>
     </task>
-    <task id="LOCAL-00005" summary="Добавила страницы бронирования, оплаты и сделала связь с базой данных, сделала некоторые проверки дат и количества гостей">
+    <task id="LOCAL-00005" summary="Добавил страницы бронирования, оплаты и сделала связь с базой данных, сделала некоторые проверки дат и количества гостей">
       <option name="closed" value="true" />
       <created>1707304983668</created>
       <option name="number" value="00005" />
@@ -218,8 +218,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Home and Rooms" />
     <MESSAGE value="DataBase_last_version" />
-    <MESSAGE value="Добавила страницы бронирования, оплаты и сделала связь с базой данных, сделала некоторые проверки дат и количества гостей" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавила страницы бронирования, оплаты и сделала связь с базой данных, сделала некоторые проверки дат и количества гостей" />
+    <MESSAGE value="Добавил страницы бронирования, оплаты и сделала связь с базой данных, сделала некоторые проверки дат и количества гостей" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавил страницы бронирования, оплаты и сделала связь с базой данных, сделала некоторые проверки дат и количества гостей" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

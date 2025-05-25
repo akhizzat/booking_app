@@ -2,55 +2,62 @@
 
 {% block content %}
 <div class="container">
-    <h1>Партнерам</h1>
-    <div class="login-register-container">
-        <!-- Вкладка Авторизации -->
+    <h1>Клиенты</h1>
+    <div class="login-register-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+
+        <!-- Вход -->
         <div class="login-form">
             <h2>Вход</h2>
-            <form method="post" action="{% url 'login_or_register' %}">
+            <form method="post" action="{% url 'login_or_register' %}" style="display: grid; gap: 1rem;">
                 {% csrf_token %}
                 <input type="hidden" name="action" value="login">
+
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Пароль" required>
-                <button type="submit" name="login">Войти</button>
+
                 {% if login_error %}
                 <div class="alert alert-danger">{{ login_error }}</div>
                 {% endif %}
+
+                <button type="submit" class="btn btn-primary">Войти</button>
             </form>
         </div>
 
-        <!-- Вкладка Регистрации -->
+        <!-- Регистрация -->
         <div class="register-form">
             <h2>Регистрация</h2>
             <form method="post" action="{% url 'login_or_register' %}">
                 {% csrf_token %}
                 <input type="hidden" name="action" value="register">
 
-                <input type="text" name="company_name" placeholder="Название компании"
-                       value="{{ registration_form.company_name.value|default_if_none:'' }}" required>
-                <input type="text" name="phone_number" placeholder="Телефон"
-                       value="{{ registration_form.phone_number.value|default_if_none:'' }}" required>
-                <input type="email" name="email" placeholder="Email"
-                       value="{{ registration_form.email.value|default_if_none:'' }}" required>
-                <input type="text" name="name" placeholder="Имя"
-                       value="{{ registration_form.name.value|default_if_none:'' }}" required>
-                <input type="text" name="surname" placeholder="Фамилия"
-                       value="{{ registration_form.surname.value|default_if_none:'' }}" required>
-                <input type="text" name="passport_details" placeholder="Паспортные данные"
-                       value="{{ registration_form.passport_details.value|default_if_none:'' }}" required>
-                <input type="password" name="password1" placeholder="Пароль" required>
-                <small>Пароль должен быть не менее 8 символов и содержать буквы и цифры.</small>
-                <input type="password" name="password2" placeholder="Повторите пароль" required>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    <input type="text" name="company_name" placeholder="Название компании"
+                        value="{{ registration_form.company_name.value|default_if_none:'' }}" required>
+                    <input type="text" name="phone_number" placeholder="Телефон"
+                        value="{{ registration_form.phone_number.value|default_if_none:'' }}" required>
+                    <input type="email" name="email" placeholder="Email"
+                        value="{{ registration_form.email.value|default_if_none:'' }}" required>
+                    <input type="text" name="name" placeholder="Имя"
+                        value="{{ registration_form.name.value|default_if_none:'' }}" required>
+                    <input type="text" name="surname" placeholder="Фамилия"
+                        value="{{ registration_form.surname.value|default_if_none:'' }}" required>
+                    <input type="text" name="passport_details" placeholder="Паспортные данные"
+                        value="{{ registration_form.passport_details.value|default_if_none:'' }}" required>
+                    <input type="password" name="password1" placeholder="Пароль" required>
+                    <input type="password" name="password2" placeholder="Повторите пароль" required>
+                </div>
+
+                <small class="text-muted d-block mt-2 mb-2">Пароль должен быть не менее 8 символов и содержать буквы и цифры.</small>
 
                 {% for field in registration_form %}
                 {% if field.errors %}
-                <div class="alert alert-danger">
-                    {{ field.errors }}
-                </div>
+                <div class="alert alert-danger mt-1">{{ field.errors }}</div>
                 {% endif %}
                 {% endfor %}
 
-                <button type="submit" name="register">Зарегистрироваться</button>
+                <div class="text-end mt-3">
+                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                </div>
             </form>
         </div>
     </div>

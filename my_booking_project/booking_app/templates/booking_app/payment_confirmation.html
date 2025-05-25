@@ -5,18 +5,35 @@
 {% endblock %}
 
 {% block content %}
-<h2>Подтверждение оплаты</h2>
-{% if discount_message %}
-    <p><strong>Сообщение:</strong> {{ discount_message }}</p>
-{% endif %}
-<form action="{% url 'process_payment' booking_id=booking_id %}" method="post">
-    {% csrf_token %}
-    <p>Общая стоимость: {{ total_cost }}</p>
-    <label for="payment_method">Выберите метод оплаты:</label>
-    <select name="payment_method" id="payment_method">
-        <option value="credit_card">Кредитная карта</option>
-        <option value="bank_transfer">Банковский перевод</option>
-    </select>
-    <button type="submit">Оплатить</button>
-</form>
+<div class="container mt-4">
+    <h2>Подтверждение оплаты</h2>
+
+    {% if discount_message %}
+        <div class="alert alert-info">
+            <strong>Скидка:</strong> {{ discount_message }}
+        </div>
+    {% endif %}
+
+    <form action="{% url 'process_payment' booking_id=booking_id %}" method="post">
+        {% csrf_token %}
+
+        <!-- Стоимость -->
+        <div class="form-group mt-3">
+            <label><strong>Общая стоимость:</strong></label>
+            <input type="text" class="form-control" value="{{ total_cost }} руб." readonly>
+        </div>
+
+        <!-- Метод оплаты -->
+        <div class="form-group mt-3">
+            <label for="payment_method">Выберите метод оплаты:</label>
+            <select name="payment_method" id="payment_method" class="form-control" required>
+                <option value="" disabled selected>Выберите...</option>
+                <option value="credit_card">Кредитная карта</option>
+                <option value="bank_transfer">Банковский перевод</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success mt-3">Оплатить</button>
+    </form>
+</div>
 {% endblock %}

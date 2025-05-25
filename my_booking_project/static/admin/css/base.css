@@ -8,19 +8,19 @@ html[data-theme="light"],
     --primary: #79aec8;
     --secondary: #417690;
     --accent: #f5dd5d;
-    --primary-fg: #fff;
+    --primary-fg: #faf7f7;
 
-    --body-fg: #333;
-    --body-bg: #fff;
+    --body-fg: #000000;
+    --body-bg: #f0f0f0;
     --body-quiet-color: #666;
-    --body-loud-color: #000;
+    --body-loud-color: #0a0a0a;
 
-    --header-color: #ffc;
+    --header-color: #040404;    
     --header-branding-color: var(--accent);
     --header-bg: var(--secondary);
     --header-link-color: var(--primary-fg);
 
-    --breadcrumbs-fg: #c4dce8;
+    --breadcrumbs-fg: #f1efef;
     --breadcrumbs-link-fg: var(--body-bg);
     --breadcrumbs-bg: #264b5d;
 
@@ -28,20 +28,20 @@ html[data-theme="light"],
     --link-hover-color: #036;
     --link-selected-fg: var(--secondary);
 
-    --hairline-color: #e8e8e8;
+    --hairline-color: #f8f7f7;
     --border-color: #ccc;
 
     --error-fg: #ba2121;
 
-    --message-success-bg: #dfd;
-    --message-warning-bg: #ffc;
-    --message-error-bg: #ffefef;
+    --message-success-bg: rgb(5, 5, 5);
+    --message-warning-bg: rgb(11, 11, 11);
+    --message-error-bg: #050505;
 
-    --darkened-bg: #f8f8f8; /* A bit darker than --body-bg */
-    --selected-bg: #e4e4e4; /* E.g. selected table cells */
-    --selected-row: #ffc;
+    --darkened-bg: #faf6f6; /* A bit darker than --body-bg */
+    --selected-bg: #050505; /* E.g. selected table cells */
+    --selected-row: rgb(249, 246, 246);
 
-    --button-fg: #fff;
+    --button-fg: #faf6f6;
     --button-bg: var(--secondary);
     --button-hover-bg: #205067;
     --default-button-bg: #205067;
@@ -219,7 +219,7 @@ fieldset {
 
 blockquote {
     font-size: 0.6875rem;
-    color: #777;
+    color: #0d0d0d;
     margin-left: 2px;
     padding-left: 10px;
     border-left: 5px solid #ddd;
@@ -1130,7 +1130,7 @@ a.deletelink:focus, a.deletelink:hover {
 }
 
 .paginator a:focus, .paginator a:hover {
-    color: white;
+    color: rgb(7, 7, 7);
     background: var(--link-hover-color);
 }
 

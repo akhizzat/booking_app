@@ -53,10 +53,10 @@
                     <div class="form-item">
                         <label for="food-type">Тип питания:</label>
                         <select id="food-type" name="food-type">
-                            <option value="breakfast">Завтрак</option>
-                            <option value="half-board">Полупансион</option>
-                            <option value="full-board">Полный пансион</option>
-                        </select>
+    {% for plan in meal_plans %}
+        <option value="{{ plan.type }}">{{ plan.get_type_display }}</option>
+    {% endfor %}
+</select>
                     </div>
                     <div class="form-item">
                         <br>

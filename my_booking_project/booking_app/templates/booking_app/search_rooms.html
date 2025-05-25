@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block title %}
@@ -12,29 +11,66 @@
     <p>{{ discount_message }}</p>
 </div>
 {% endif %}
-<!-- Список доступных номеров с ценами за разные тарифы питания -->
+
 <div class="rooms-container">
-    {% if rooms_with_meals %}
-    <div class="back-link-container">
-        <p><a href="{% url 'home' %}">Назад</a></p>
-    </div>
-    {% endif %}
-    {% for room_info in rooms_with_meals %}
-    <div class="room">
-        <h2>Номер комнаты: {{ room_info.room.number }}</h2>
-        <img src="{{ room_info.room.image.url }}" alt="Room image">
-        <p>Тип номера: {{ room_info.room.category }}</p>
-        <!-- Вывод цен за разные тарифы питания как ссылок -->
-        {% for meal_type, price in room_info.meals.items %}
-        <p><a href="{% url 'booking' room_info.room.id %}?meal_plan={{ meal_type }}">Цена с питанием: {{ meal_type }}:
-            {{ price }} руб/сутки</a></p>
+    {% if rooms_with_meals and rooms_with_meals|length > 0 %}
+
+        {% for room_info in rooms_with_meals %}
+        <div class="room-card">
+            <div class="room-image-container">
+                <img src="{{ room_info.room.image.url }}" alt="Room image"
+     style="width: 100%; max-width: 350px; height: auto; display: block; object-fit: cover; border-radius: 10px; margin: 1rem auto;" />
+
+            </div>
+            <div class="room-info">
+                <h2>Номер комнаты: {{ room_info.room.number }}</h2>
+                <p>Тип номера: {{ room_info.room.category }}</p>
+                {% for meal_type, data in room_info.meals.items %}
+                    <p>Цена с питанием ({{ data.name }}): {{ data.price }} руб/сутки</p>
+                    <a href="{% url 'booking' room_info.room.id %}?meal_plan=standard" class="btn-primary-custom">Забронировать</a>
+                {% endfor %}
+            </div>
+        </div>
         {% endfor %}
+
+    {% else %}
+        {% if not showing_alternatives %}
+        <div class="no-rooms">
+            <br>
+            <h4>Свободных номеров на эти даты нет. 
+                <a href="{% url 'home' %}">Вернуться на страницу поиска.</a>
+            </h4>
+
+            <form method="get" action="{% url 'booking_from_search' %}">
+                <input type="hidden" name="alternative" value="1">
+                <button type="submit" class="btn btn-secondary">Показать альтернативы</button>
+            </form>
+        </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+<!-- Альтернативные номера -->
+{% if showing_alternatives %}
+<hr>
+<h3 style="text-align: center;">Доступные альтернативные номера:</h3>
+<div class="rooms-container">
+    {% for room in alternative_rooms %}
+    <div class="room-card alt-room">
+        <div class="room-image-container">
+            <img src="{{ room.image.url }}" alt="Room image" class="room-image" />
+        </div>
+        <div class="room-info">
+            <h2>Номер комнаты: {{ room.number }}</h2>
+            <p>Тип номера: {{ room.category }}</p>
+            <p>Цена с питанием (Стандартное питание): {{ room.price_per_night }} руб/сутки</p>
+            <a href="{% url 'booking' room_info.room.id %}?meal_plan=standard" class="btn-primary-custom">Забронировать</a>
+
+        </div>
     </div>
     {% empty %}
-    <div class="no-rooms">
-        <br>
-        <h4>Свободных номеров на эти даты нет. <a href="{% url 'home' %}">Вернуться на страницу поиска.</a></h4>
-    </div>
+        <p>Альтернативных номеров также нет.</p>
     {% endfor %}
 </div>
+{% endif %}
 {% endblock %}

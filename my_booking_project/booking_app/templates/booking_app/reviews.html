@@ -1,40 +1,135 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
+{% block title %}
+<title>Отзывы</title>
+{% endblock %}
+
+{% block head %}
+<style>
+    main.container {
+        padding: 2rem 1rem;
+    }
+
+    .reviews-card {
+        max-width: 1100px;
+        margin: auto;
+        background-color: #1e2a38;
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+
+    .rating-summary {
+        background-color: #151f2a;
+        padding: 15px 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        display: inline-block;
+        margin-bottom: 1.5rem;
+    }
+
+    .rating-summary p {
+        margin: 0.3rem 0;
+    }
+
+    .single-review {
+        background-color: #1c1c1c;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .single-review h5 {
+        color: white;
+        font-weight: 600;
+    }
+
+    .single-review p {
+        color: #ccc;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .single-review .title {
+        color: #87cefa;
+        font-weight: 500;
+        font-size: 1rem;
+        margin: 0.3rem 0 0.7rem 0;
+    }
+
+    .single-review .text {
+        color: #ddd;
+        line-height: 1.5;
+    }
+
+    .stars {
+        font-size: 1rem;
+    }
+
+    .star-block {
+        display: inline-block;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        vertical-align: middle;
+    }
+
+    .star {
+        display: inline-block;
+        width: 1.2em;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+    }
+
+    .star.full {
+        color: gold;
+    }
+
+    .star.empty {
+        color: #555;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-<div class="reviews">
-    <h1>Отзывы</h1>
-    <div class="review-form">
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Оставить отзыв</button>
-        </form>
-    </div>
-    <div class="review-list">
-        {% for review in reviews %}
-        <div class="review">
-            <h3>{{ review.title }}</h3>
-            <p>{{ review.review }}</p>
-            <div class="star-rating">
-                {% for _ in review.stars_full %}
-                    <span class="star full"></span>
-                {% endfor %}
-                {% for _ in review.stars_empty %}
-                    <span class="star empty"></span>
-                {% endfor %}
-            </div>
-            <p>Оценка: {{ review.rating }}/5</p>
-            <p>Автор: {{ review.customer.first_name }} {{ review.customer.last_name }}, {{ review.review_date }}</p>
+<main class="container">
+    <div class="reviews-card">
+        <h2 style="color: #aad8ff;">Отзывы наших гостей</h2>
+
+        <div class="rating-summary">
+            <p style="color: #87cefa; font-size: 1.1rem;">Рейтинг</p>
+            <p style="color: white; font-weight: bold; font-size: 1.5rem;">
+                {{ average_rating }} <span style="color: gold;">★</span>
+            </p>
+            <p style="color: #ccc; font-size: 0.9rem;">на основе {{ reviews|length }} отзывов</p>
         </div>
+
+        {% for review in reviews %}
+            <div class="single-review">
+                <h5>{{ review.customer.get_full_name }}</h5>
+                <p style="font-size: 0.85rem; margin-top: -6px;">{{ review.review_date|date:"d.m.Y" }}</p>
+
+                {% if review.title %}
+                    <p class="title">{{ review.title }}</p>
+                {% endif %}
+
+                {% if review.review %}
+                    <p class="text">{{ review.review }}</p>
+                {% endif %}
+
+                <p class="stars">
+                    Оценка:
+                    <span class="star-block">
+                        {% for _ in review.stars_full %}<span class="star full">★</span>{% endfor %}
+                        {% for _ in review.stars_empty %}<span class="star empty">☆</span>{% endfor %}
+                    </span>
+                </p>
+            </div>
+        {% empty %}
+            <p style="color: white;">Пока нет отзывов.</p>
         {% endfor %}
     </div>
-</div>
+</main>
 {% endblock %}

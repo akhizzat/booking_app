@@ -6,31 +6,33 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from booking_app.managers import CustomUserManager
+from .managers import CustomUserManager
 
 
 class User(AbstractUser):
     email = models.EmailField('email address', unique=True)
 
-    # Ваши дополнительные поля
     passport_details = models.CharField(max_length=11, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
 
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True)
+    display_name = models.CharField(max_length=100, blank=True, null=True)
+
     is_guest = models.BooleanField(default=False, help_text='Designates whether this user is a guest or a partner.')
 
-    USERNAME_FIELD = 'email'  # Указывает, что поле email используется в качестве основного идентификатора пользователя вместо стандартного username
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 
-
     def save(self, *args, **kwargs):
-        self.username = self.email  # Копируем значение email в username перед сохранением
+        self.username = self.email
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.email
 
-    # Добавляем аргумент related_name для каждого поля
     groups = models.ManyToManyField(
         'auth.Group',
         verbose_name='groups',
@@ -50,7 +52,6 @@ class User(AbstractUser):
 
     @property
     def is_partner(self):
-        # Проверяем, связан ли с пользователем объект Partner через related_name 'partner'
         return hasattr(self, 'partner')
 
 
@@ -63,8 +64,8 @@ class Partner(models.Model):
 
     class Meta:
         db_table = "booking_app_partner"
-        verbose_name = "Партнер"
-        verbose_name_plural = "Партнеры"
+        verbose_name = "Клиенты"
+        verbose_name_plural = "Клиенты"
 
     def __str__(self):
         return self.company_name
@@ -89,8 +90,13 @@ class Commission(models.Model):
 
 # Модель типов питания
 class MealPlan(models.Model):
+    MEAL_TYPES = [
+        ('standard', 'Стандартное питание'),
+        ('breakfast', 'Завтрак'),
+        ('all_inclusive', 'Всё включено'),
+    ]
 
-    type = models.CharField(max_length=20, unique=True)
+    type = models.CharField(max_length=20, choices=MEAL_TYPES, unique=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
 
     class Meta:
@@ -99,7 +105,8 @@ class MealPlan(models.Model):
         verbose_name_plural = "Планы питания"
 
     def __str__(self):
-        return self.type
+        return self.get_type_display()
+
 
 
 class Room(models.Model):

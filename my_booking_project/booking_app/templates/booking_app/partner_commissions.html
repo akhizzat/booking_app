@@ -1,25 +1,39 @@
 {% extends "base.html" %}
 
+{% block title %}
+    <title>Мои вознаграждения</title>
+{% endblock %}
+
 {% block content %}
-<h2>Мои вознаграждения</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Период</th>
-            <th>Объём продаж</th>
-            <th>Комиссия (%)</th>
-            <th>Сумма вознаграждения</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for commission in commissions %}
-        <tr>
-            <td>{{ commission.period }}</td>
-            <td>{{ commission.sales_volume }}</td>
-            <td>{{ commission.commission_rate }}</td>
-            <td>{{ commission.amount }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container mt-5">
+    <div class="section-card">
+        <h2 class="section-title">Мои вознаграждения</h2>
+        <div class="table-wrapper">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Период</th>
+                        <th>Объём продаж</th>
+                        <th>Комиссия (%)</th>
+                        <th>Сумма вознаграждения</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for commission in commissions %}
+                    <tr>
+                        <td>{{ commission.period }}</td>
+                        <td>{{ commission.sales_volume }}</td>
+                        <td>{{ commission.commission_rate }}</td>
+                        <td>{{ commission.amount }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">Нет данных о вознаграждениях.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

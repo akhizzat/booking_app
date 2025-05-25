@@ -7,8 +7,66 @@
 {% endblock %}
 
 {% block head %}
-<script src="{% static 'booking_app/js/validation.js' %}" defer></script>
-<link type="text/css" href="{% static 'booking_app/css/style.css' %}" rel="stylesheet" />
+<style>
+    .grid-stocks {
+        max-width: 1200px;
+        margin: 2rem auto;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .stock-item {
+        background-color: #1e2a38;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .stock-text {
+        flex: 1 1 60%;
+        color: #f0f0f0;
+    }
+
+    .stock-text h2 {
+        color: #aad8ff;
+        margin-bottom: 1rem;
+    }
+
+    .stock-text h3 {
+        color: #aad8ff;
+        margin-top: 1.5rem;
+    }
+
+    .stock-text ul {
+        padding-left: 1.2rem;
+        list-style: square;
+    }
+
+    .stock-text li {
+        margin-bottom: 0.5rem;
+    }
+
+    .stock-image {
+        flex: 1 1 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 2rem;
+    }
+
+    .stock-image img {
+        max-width: 100%;
+        max-height: 230px;
+        border-radius: 12px;
+        object-fit: cover;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -31,13 +89,14 @@
                 <img src="{% static 'booking_app/images/stocks_1.jpg' %}" alt="Большая семья">
             </figure>
         </div>
+
         <div class="stock-item">
             <section class="stock-text">
                 <h2>Акция "Безлимитный алкоголь"</h2>
-                <p>ВИНО, ВОДКА, ПИВО И ШАМПАНСКОЕ БЕЗ ОГРАНИЧЕНИЙ в течение дня за 1 500 р. с человека.</p>
+                <p>ВИНО, ВОДКА, ПИВО И ШАМПАНСКОЕ БЕЗ ОГРАНИЧЕНИЙ в течение дня за 150 р. с человека.</p>
                 <h3>Условия и сроки действия акции:</h3>
                 <ul>
-                    <li>Сроки действия акции: до 28.03.2024, исключая 22.02.24 — 24.02.24 и 07.03.24 — 09.03.24.</li>
+                    <li>Сроки действия акции: до 28.07.2025, исключая 22.05.25 — 24.05.25 и 07.06.25 — 09.06.25.</li>
                     <li>Акции и спецпредложения не суммируются.</li>
                 </ul>
             </section>
@@ -46,13 +105,10 @@
             </figure>
         </div>
     </div>
-</main>
+</main> 
 
 <div id="myModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
     <img class="modal-content" id="img01">
 </div>
 {% endblock %}
-
-
-

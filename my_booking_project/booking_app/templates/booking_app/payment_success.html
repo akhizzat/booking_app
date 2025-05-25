@@ -1,20 +1,67 @@
 {% extends 'base.html' %}
 
 {% block title %}<title>Оплата успешно проведена</title>{% endblock %}
+
+{% block head %}
+<style>
+    .payment-success-section {
+        max-width: 800px;
+        margin: 2rem auto;
+        background-color: #1e2a38;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 0 12px rgba(0,0,0,0.4);
+        color: #ddd;
+    }
+
+    .payment-success-section h2 {
+        color: #aad8ff;
+        margin-bottom: 1.5rem;
+    }
+
+    .payment-success-section p {
+        margin-bottom: 0.7rem;
+    }
+
+    .payment-success-section a {
+        display: inline-block;
+        margin-top: 1.5rem;
+        background-color: #1296bf;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .payment-success-section a:hover {
+        background-color: #0f7a9d;
+    }
+
+    .payment-success-section strong {
+        color: #f8c471;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-{% if request.session.booking_info %}
-<h2>Оплата бронирования успешно проведена</h2>
-{% if discount_message %}
-<p><strong>Внимание!</strong> {{ discount_message }}</p>
-{% endif %}
-    <p>Бронирование номера: {{ request.session.booking_info.room_number }}</p>
-    <p>Дата заезда: {{ request.session.booking_info.check_in_date }}</p>
-    <p>Дата выезда: {{ request.session.booking_info.check_out_date }}</p>
-    <p>Итого дней: {{ request.session.booking_info.total_nights }}</p>
-    <p>Питание: {{ request.session.booking_info.meal_plan }}</p>
-    <p>К оплате: {{ request.session.booking_info.total_cost }} руб.</p>
-    <a href="{% url 'home' %}">Вернуться на главную страницу</a>
-{% else %}
-<p>Информация о бронировании не найдена. Пожалуйста, начните процесс бронирования заново.</p>
-{% endif %}
+<main class="container">
+    <div class="payment-success-section">
+        {% if request.session.booking_info %}
+            <h2>Оплата бронирования успешно проведена</h2>
+            {% if discount_message %}
+            <p><strong>Внимание!</strong> {{ discount_message }}</p>
+            {% endif %}
+            <p>Бронирование номера: {{ request.session.booking_info.room_number }}</p>
+            <p>Дата заезда: {{ request.session.booking_info.check_in_date }}</p>
+            <p>Дата выезда: {{ request.session.booking_info.check_out_date }}</p>
+            <p>Итого дней: {{ request.session.booking_info.total_nights }}</p>
+            <p>Питание: {{ request.session.booking_info.meal_plan }}</p>
+            <p><strong>К оплате:</strong> {{ request.session.booking_info.total_cost }} руб.</p>
+            <a href="{% url 'home' %}">Вернуться на главную страницу</a>
+        {% else %}
+            <p>Информация о бронировании не найдена. Пожалуйста, начните процесс бронирования заново.</p>
+        {% endif %}
+    </div>
+</main>
 {% endblock %}

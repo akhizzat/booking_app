@@ -38,13 +38,13 @@ form .form-row p {
 
 label {
     font-weight: normal;
-    color: var(--body-quiet-color);
+    color: #f9f8f8; 
     font-size: 0.8125rem;
 }
 
 .required label, label.required {
     font-weight: bold;
-    color: var(--body-fg);
+    color: #fffbfb;
 }
 
 /* RADIO BUTTONS */

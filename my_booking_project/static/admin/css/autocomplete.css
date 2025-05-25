@@ -58,7 +58,7 @@ select.admin-autocomplete {
 }
 
 .select2-container--admin-autocomplete .select2-selection--single .select2-selection__arrow b {
-    border-color: #888 transparent transparent transparent;
+    border-color: #060606 transparent transparent transparent;
     border-style: solid;
     border-width: 5px 4px 0 4px;
     height: 0;
@@ -89,7 +89,7 @@ select.admin-autocomplete {
 }
 
 .select2-container--admin-autocomplete.select2-container--open .select2-selection--single .select2-selection__arrow b {
-    border-color: transparent transparent #888 transparent;
+    border-color: transparent transparent #131313 transparent;
     border-width: 0 4px 5px 4px;
 }
 

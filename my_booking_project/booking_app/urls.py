@@ -1,4 +1,5 @@
 
+from .views import profile_view
 from django.urls import path, include
 from . import views
 from drf_spectacular.views import (
@@ -31,6 +32,9 @@ urlpatterns = [
     path('stocks/', views.stocks, name='stocks'),
     path('contact/', views.contact, name='contact'),
     path('reviews/', views.reviews, name='reviews'),
+    path('leave_review/', views.leave_review, name='leave_review'),
+    path('profile/', profile_view, name='profile'), 
+
 
 
 

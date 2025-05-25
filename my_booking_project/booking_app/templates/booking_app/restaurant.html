@@ -7,12 +7,41 @@
 {% endblock %}
 
 {% block head %}
-<script src="{% static 'booking_app/js/validation.js' %}" defer></script>
+<style>
+    .restaurant-section {
+        max-width: 1200px;
+        margin: 2rem auto;
+        background-color: #1e2a38;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    }
+    .restaurant-section h2, .restaurant-section h3 {
+        color: #aad8ff;
+    }
+    .restaurant-section p {
+        color: #ddd;
+    }
+    .restaurant-section figure {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .restaurant-section img {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    }
+</style>
 {% endblock %}
 
 {% block content %}
 <main class="container">
-    <div class="grid">
+    <div class="restaurant-section">
         <section>
             <hgroup>
                 <h2>Добро пожаловать в ресторан нашего отеля</h2>
@@ -27,9 +56,9 @@
             <h3>Эксклюзивное меню</h3>
             <p>Наше меню создано для того, чтобы удовлетворить самые изысканные вкусы. Каждое блюдо – это произведение искусства, которое порадует вас не только вкусом, но и презентацией.</p>
             <figure>
-                <img src="{% static 'booking_app/images/menu_1.jpg' %}" alt="Зал ресторана" onclick="openModal(this.src)">
-                <img src="{% static 'booking_app/images/menu_2.jpg' %}" alt="Зал ресторана" onclick="openModal(this.src)">
-                <img src="{% static 'booking_app/images/menu_3.jpg' %}" alt="Зал ресторана" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/menu_1.jpg' %}" alt="Блюдо меню" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/menu_2.jpg' %}" alt="Блюдо меню" onclick="openModal(this.src)">
+                <img src="{% static 'booking_app/images/menu_3.jpg' %}" alt="Блюдо меню" onclick="openModal(this.src)">
             </figure>
             <h3>Особенности нашего ресторана</h3>
             <p>Прекрасный вид на природу, живая музыка в вечерние часы и высококлассное обслуживание сделают ваш вечер незабываемым.</p>

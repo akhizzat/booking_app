@@ -12,25 +12,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-ovh6xg69vrrmrq0_)5q+g2-1b+0%x6-p%6hz26ar$ai8v3ra!j'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.30', 'localhost'] #Вот это ip адрес моего пк, чтоб я мог с
-# телефона смотреть как смотрится
-
-
-# Application definition
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.30', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -55,7 +43,6 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'Django5 Test Swagger API',
     'DESCRIPTION': 'Django5 Test Swagger API description',
     'VERSION': '1.0.0',
-    # OTHER SETTINGS
 }
 
 MIDDLEWARE = [
@@ -91,31 +78,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'my_booking_project.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db_booking.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'booking_app',
         'USER': 'postgres',
-        'PASSWORD': '123456',
+        'PASSWORD': '2003',
         'HOST': 'localhost',
-        'PORT': '5432',
-
+        'PORT': '5433',
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+    
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -133,9 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
@@ -147,33 +117,20 @@ USE_TZ = True
 LOGIN_URL = 'login'
 
 
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
 BASE_DIR = Path(__file__).resolve().parent.parent
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_URL = 'static/'
-# Если вы используете Windows, попробуйте изменить STATIC_ROOT на строку:
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-#STATIC_ROOT = 'E:/Py/Диплом/booking_app/my_booking_project/static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Для collectstatic
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# settings.py
 
 AUTH_USER_MODEL = 'booking_app.User'
 
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# URL, который используется для доступа к медиа-файлам (изображениям)
-MEDIA_URL = '/media/'
-
-# Физический путь к директории, где будут храниться медиа-файлы
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'  # URL-префикс для медиафайлов
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Путь к папке с файлами
 
 
 

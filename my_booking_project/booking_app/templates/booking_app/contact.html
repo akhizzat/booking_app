@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block title %}
@@ -7,38 +6,72 @@
 {% endblock %}
 
 {% block head %}
+<style>
+    main.container {
+        padding: 2rem 1rem;
+    }
+
+    .contact-card {
+        max-width: 1000px;
+        margin: auto;
+        background-color: #1e2a38;
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    }
+
+    .contact-card h2 {
+        font-size: 2rem;
+        color: #aad8ff;
+        margin-bottom: 1rem;
+    }
+
+    .contact-card h3 {
+        margin-top: 1.5rem;
+        color: #aad8ff;
+    }
+
+    .contact-card p {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .map-container {
+        margin-top: 1.5rem;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .map-container iframe {
+        width: 100%;
+        height: 400px;
+        border: none;
+    }
+</style>
 <script src="{% static 'booking_app/js/validation.js' %}" defer></script>
-<link type="text/css" href="{% static 'booking_app/css/style.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
 <main class="container">
-    <div class="contact-section">
+    <div class="contact-card">
         <h2>Контакты</h2>
-        <div class="contact-info">
-            <h3>Адрес:</h3>
-            <p>649109 Республика Алтай, Майминский район, село Урлу-Аспак</p>
 
-            <h3>Телефон:</h3>
-            <p>+7 (999) 139-59-54</p>
+        <h3>Адрес:</h3>
+        <p>649109 Республика Алтай, Майминский район, село Урлу-Аспак</p>
 
-            <h3>Местоположение на карте:</h3>
-            <!-- Вставьте сюда HTML для встраивания карты от Google Maps -->
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9894.831513577494!2d86.20603126668995!3d51.68348995359131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x42c5b6e86408cce5%3A0x2bef7841ff7d782e!2z0KPRgNC70YMt0JDRgdC_0LDQuiwg0KDQtdGB0L8uINCQ0LvRgtCw0LksINCg0L7RgdGB0LjRjywgNjQ5MTA5!5e0!3m2!1sru!2snl!4v1708031288173!5m2!1sru!2snl"
-                        width="600"
-                        height="450"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
+        <h3>Телефон:</h3>
+        <p>+7 (999) 139-59-54</p>
+
+        <h3>Местоположение на карте:</h3>
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9894.831513577494!2d86.20603126668995!3d51.68348995359131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x42c5b6e86408cce5%3A0x2bef7841ff7d782e!2z0KPRgNC70YMt0JDRgdC_0LDQuiwg0KDQtdGB0L8uINCQ0LvRgtCw0LksINCg0L7RgdGB0LjRjywgNjQ5MTA5!5e0!3m2!1sru!2snl!4v1708031288173!5m2!1sru!2snl"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
     </div>
 </main>
 {% endblock %}
-
-
-
-

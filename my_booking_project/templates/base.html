@@ -1,57 +1,198 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- PicoCSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link type="text/css" href="{% static 'booking_app/css/style.css' %}" rel="stylesheet" />
-    {% block head %}
-    {% endblock %}
+
+    <!-- Основной CSS -->
+    <link rel="stylesheet" href="{% static 'booking_app/css/style.css' %}">
+
+    <!-- Дополнительные стили -->
+    <style>
+        /* 🔷 Кнопка "Забронировать" */
+        .btn-primary-custom {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: #1296bf;
+            color: #fff;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-radius: 10px;
+            text-decoration: none;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #0f7a9d;
+            color: #fff;
+        }
+
+        /* Стили логотипа */
+        .logo-wrapper {
+            width: 100px !important;
+            height: 100px !important;
+            overflow: hidden !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .logo-wrapper img.logo {
+            width: 100px !important;
+            height: 100px !important;
+            object-fit: contain !important;
+            display: block !important;
+        }
+
+        /* 🔒 Sticky навигация */
+        nav {
+            background-color: #0d0d0d;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+        }
+
+        nav .nav-container {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0 2rem;
+            gap: 2rem;
+        }
+
+        nav .menu {
+            margin-left: 1rem;
+        }
+
+        nav .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav .menu ul li {
+            border: 2px solid #00bfff;
+            border-radius: 8px;
+            padding: 6px 12px;
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+
+        nav .menu ul li:hover {
+            background-color: #00bfff;
+            transform: translateY(-2px);
+        }
+
+        nav .menu ul li a {
+            text-decoration: none;
+            color: #00bfff;
+            font-weight: 500;
+            font-size: 1rem;
+            display: block;
+        }
+
+        nav .menu ul li:hover a {
+            color: #fff;
+        }
+
+        /* ✅ Подсветка активного пункта */
+        nav .menu ul li.active {
+            background-color: #00bfff;
+        }
+
+        nav .menu ul li.active a {
+            color: #fff;
+        }
+
+        nav + section {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        /* Стиль карточек комнат */
+        .room-card {
+            max-width: 750px;
+            margin: 2rem auto;
+            padding: 20px;
+            background-color: #111;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+        /* Стиль изображений */
+        .room img.room-image,
+        .room-card img.room-image {
+            max-width: 400px !important;
+            width: 100% !important;
+            height: auto !important;
+            object-fit: cover !important;
+            display: block !important;
+            margin: 1rem auto !important;
+            border-radius: 10px !important;
+        }
+    </style>
+
+    {% block head %}{% endblock %}
     {% block title %}
     <title>Hotel Homepage</title>
     {% endblock %}
 </head>
+
 <body>
 
-    <nav>
-
-            <div class="class_logo">
-               <ul>
-                    <li><img src="{% static 'booking_app/images/logo.png' %}" alt="BookEasy Logo" class="logo"></li>
-                </ul>
+<!-- Навигация -->
+<nav>
+    <div class="nav-container">
+        <div class="class_logo">
+            <div class="logo-wrapper">
+                <img src="{% static 'booking_app/images/logo.png' %}" alt="BookEasy Logo" class="logo">
             </div>
-            <div class="menu">
-                <ul>
-                    <li><a href="{% url 'home' %}">Главная</a></li>
-                    <li><a href="{% url 'about' %}">Об отеле</a></li>
-                    <li><a href="{% url 'rooms' %}">Номера и цены</a></li>
-                    <li><a href="{% url 'login_or_register' %}">Партнерам</a></li>
-                    <li><a href="{% url 'stocks' %}">Акции</a></li>
-                    <li><a href="{% url 'entertainment' %}">Развлечения</a></li>
-                    <li><a href="{% url 'restaurant' %}">Рестораны</a></li>
-                    <li><a href="{% url 'spa' %}">СПА</a></li>
-                    <li><a href="{% url 'reviews' %}">Отзывы</a></li>
-                    <li><a href="{% url 'contact' %}">Контакты</a></li>
-                </ul>
-
         </div>
+        <div class="menu">
+            <ul>
+                <li class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}"><a href="{% url 'home' %}">Главная</a></li>
+                <li class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}"><a href="{% url 'about' %}">Об отеле</a></li>
+                <li class="{% if request.resolver_match.url_name == 'rooms' %}active{% endif %}"><a href="{% url 'rooms' %}">Номера и цены</a></li>
+                <li class="{% if request.resolver_match.url_name == 'login_or_register' %}active{% endif %}"><a href="{% url 'login_or_register' %}">Клиенты</a></li>
+                <li class="{% if request.resolver_match.url_name == 'stocks' %}active{% endif %}"><a href="{% url 'stocks' %}">Акции</a></li>
+                <li class="{% if request.resolver_match.url_name == 'entertainment' %}active{% endif %}"><a href="{% url 'entertainment' %}">Развлечения</a></li>
+                <li class="{% if request.resolver_match.url_name == 'restaurant' %}active{% endif %}"><a href="{% url 'restaurant' %}">Рестораны</a></li>
+                <li class="{% if request.resolver_match.url_name == 'spa' %}active{% endif %}"><a href="{% url 'spa' %}">СПА</a></li>
+                <li class="{% if request.resolver_match.url_name == 'reviews' %}active{% endif %}"><a href="{% url 'reviews' %}">Отзывы</a></li>
+                <li class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}"><a href="{% url 'contact' %}">Контакты</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-
-    </nav>
-
+<!-- Основной контент -->
 <section>
     <div>
         {% block content %}
         {% endblock %}
     </div>
 </section>
+
+<!-- Подвал -->
 <footer>
     <div class="container footer-container">
         <div class="address">
-            <p><strong>Адрес</strong>:649109 Республика Алтай, Майминский район, село Урлу-Аспак</p>
+            <p><strong>Адрес</strong>: 649109 Республика Алтай, Майминский район, село Урлу-Аспак</p>
             <p><strong>Телефон</strong>: +7 (999) 139-59-54 (Круглосуточно 24/7)</p>
         </div>
     </div>

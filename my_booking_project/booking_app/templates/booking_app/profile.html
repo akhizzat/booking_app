@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Мой профиль</title>
+{% endblock %}
+
+{% block head %}
+<style>
+    .profile-container {
+        max-width: 700px;
+        margin: 2rem auto;
+        background-color: #1e2a38;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .profile-container h1 {
+        color: #aad8ff;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+        color: #ddd;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 0.3rem;
+        font-weight: bold;
+        color: #aad8ff;
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 0.6rem;
+        border-radius: 8px;
+        border: 1px solid #555;
+        background-color: #151f2a;
+        color: #fff;
+    }
+
+    .alert-danger {
+        background-color: #2e2e2e;
+        color: #ff7373;
+        padding: 8px;
+        border-radius: 6px;
+        margin-top: 5px;
+    }
+
+    .btn-primary {
+        background-color: #1296bf;
+        color: white;
+        font-weight: bold;
+        padding: 0.75rem 1.25rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        display: block;
+        margin: auto;
+    }
+
+    .btn-primary:hover {
+        background-color: #0f7a9d;
+    }
+
+    .avatar-preview {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .avatar-preview img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #1296bf;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <div class="profile-container">
+        <h1>Мой профиль</h1>
+
+        {% if user.avatar %}
+        <div class="avatar-preview">
+            <img src="{{ user.avatar.url }}" alt="Ваш аватар">
+        </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn-primary">Сохранить изменения</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

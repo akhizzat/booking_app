@@ -1,52 +1,58 @@
 'use strict';
 {
-    window.addEventListener('load', function(e) {
+    window.addEventListener('load', function () {
 
         function setTheme(mode) {
-            if (mode !== "light" && mode !== "dark" && mode !== "auto") {
-                console.error(`Got invalid theme mode: ${mode}. Resetting to auto.`);
-                mode = "auto";
+            if (!['light', 'dark', 'auto'].includes(mode)) {
+                console.error(`Invalid theme mode: ${mode}. Falling back to auto.`);
+                mode = 'auto';
             }
-            document.documentElement.dataset.theme = mode;
-            localStorage.setItem("theme", mode);
+
+            // Установка data-theme на <html>
+            document.documentElement.setAttribute('data-theme', mode);
+            localStorage.setItem('theme', mode);
+
+            // Применение предпочтения системы, если auto
+            if (mode === 'auto') {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+            }
         }
 
         function cycleTheme() {
-            const currentTheme = localStorage.getItem("theme") || "auto";
-            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const current = localStorage.getItem('theme') || 'auto';
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
             if (prefersDark) {
-                // Auto (dark) -> Light -> Dark
-                if (currentTheme === "auto") {
-                    setTheme("light");
-                } else if (currentTheme === "light") {
-                    setTheme("dark");
+                // auto (dark) -> light -> dark
+                if (current === 'auto') {
+                    setTheme('light');
+                } else if (current === 'light') {
+                    setTheme('dark');
                 } else {
-                    setTheme("auto");
+                    setTheme('auto');
                 }
             } else {
-                // Auto (light) -> Dark -> Light
-                if (currentTheme === "auto") {
-                    setTheme("dark");
-                } else if (currentTheme === "dark") {
-                    setTheme("light");
+                // auto (light) -> dark -> light
+                if (current === 'auto') {
+                    setTheme('dark');
+                } else if (current === 'dark') {
+                    setTheme('light');
                 } else {
-                    setTheme("auto");
+                    setTheme('auto');
                 }
             }
         }
 
         function initTheme() {
-            // set theme defined in localStorage if there is one, or fallback to auto mode
-            const currentTheme = localStorage.getItem("theme");
-            currentTheme ? setTheme(currentTheme) : setTheme("auto");
+            const saved = localStorage.getItem('theme');
+            setTheme(saved || 'light');  // ← устанавливаем светлую по умолчанию
         }
 
         function setupTheme() {
-            // Attach event handlers for toggling themes
-            const buttons = document.getElementsByClassName("theme-toggle");
-            Array.from(buttons).forEach((btn) => {
-                btn.addEventListener("click", cycleTheme);
+            const buttons = document.getElementsByClassName('theme-toggle');
+            Array.from(buttons).forEach(btn => {
+                btn.addEventListener('click', cycleTheme);
             });
             initTheme();
         }
